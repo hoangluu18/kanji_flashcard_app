@@ -1,8 +1,0 @@
-hiện tại tôi đang cần  triển khai dự án học kanji n2 bằng flashcard trên chatbot telegram 
-phương pháp học: theo anki (có lẽ giống phương pháp anki)
-nhưng vấn đề bây giờ là là anki có lật lên lật xuống còn tôi thì dựa trên việc 
-header và card cho việc đó
-phương thức lưu trữ: local
-ngoài ra thì tự động gửi kanji trong ngày (ví dụ 9h sáng gửi 10 kanji để ôn ,v.v)
-ôn tập,v.v
-chưa cần code, phân tích đưa ra ý kiến, giải pháp tốt nhất cho tôi
