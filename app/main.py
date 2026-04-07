@@ -158,7 +158,7 @@ async def telegram_webhook(secret: str, request: Request) -> dict:
 
 
 @app.post("/admin/telegram/set-webhook")
-async def admin_set_webhook(request: Request, _: None = Depends(require_admin_key)) -> dict:
+async def admin_set_webhook(request: Request) -> dict:
     runtime: RuntimeState = request.app.state.runtime
     if not runtime.settings.telegram_use_webhook:
         raise HTTPException(status_code=400, detail="Cannot set webhook when TELEGRAM_USE_WEBHOOK=false")
