@@ -1,0 +1,1 @@
+"""Kanji Telegram bot package."""

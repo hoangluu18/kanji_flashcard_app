@@ -1,0 +1,3106 @@
+[
+  {
+    "id": 0,
+    "page": 1,
+    "kanji": 1,
+    "card_index": 0,
+    "card_img": "cards/card_0000.jpg",
+    "header_img": "headers/header_0001.jpg"
+  },
+  {
+    "id": 1,
+    "page": 2,
+    "kanji": 2,
+    "card_index": 1,
+    "card_img": "cards/card_0001.jpg",
+    "header_img": "headers/header_0002.jpg"
+  },
+  {
+    "id": 2,
+    "page": 3,
+    "kanji": 3,
+    "card_index": 2,
+    "card_img": "cards/card_0002.jpg",
+    "header_img": "headers/header_0003.jpg"
+  },
+  {
+    "id": 3,
+    "page": 4,
+    "kanji": 4,
+    "card_index": 3,
+    "card_img": "cards/card_0003.jpg",
+    "header_img": "headers/header_0004.jpg"
+  },
+  {
+    "id": 4,
+    "page": 5,
+    "kanji": 5,
+    "card_index": 4,
+    "card_img": "cards/card_0004.jpg",
+    "header_img": "headers/header_0005.jpg"
+  },
+  {
+    "id": 5,
+    "page": 6,
+    "kanji": 6,
+    "card_index": 5,
+    "card_img": "cards/card_0005.jpg",
+    "header_img": "headers/header_0006.jpg"
+  },
+  {
+    "id": 6,
+    "page": 7,
+    "kanji": 7,
+    "card_index": 6,
+    "card_img": "cards/card_0006.jpg",
+    "header_img": "headers/header_0007.jpg"
+  },
+  {
+    "id": 7,
+    "page": 8,
+    "kanji": 8,
+    "card_index": 7,
+    "card_img": "cards/card_0007.jpg",
+    "header_img": "headers/header_0008.jpg"
+  },
+  {
+    "id": 8,
+    "page": 9,
+    "kanji": 9,
+    "card_index": 8,
+    "card_img": "cards/card_0008.jpg",
+    "header_img": "headers/header_0009.jpg"
+  },
+  {
+    "id": 9,
+    "page": 10,
+    "kanji": 10,
+    "card_index": 9,
+    "card_img": "cards/card_0009.jpg",
+    "header_img": "headers/header_0010.jpg"
+  },
+  {
+    "id": 10,
+    "page": 11,
+    "kanji": 11,
+    "card_index": 10,
+    "card_img": "cards/card_0010.jpg",
+    "header_img": "headers/header_0011.jpg"
+  },
+  {
+    "id": 11,
+    "page": 12,
+    "kanji": 12,
+    "card_index": 11,
+    "card_img": "cards/card_0011.jpg",
+    "header_img": "headers/header_0012.jpg"
+  },
+  {
+    "id": 12,
+    "page": 13,
+    "kanji": 13,
+    "card_index": 12,
+    "card_img": "cards/card_0012.jpg",
+    "header_img": "headers/header_0013.jpg"
+  },
+  {
+    "id": 13,
+    "page": 14,
+    "kanji": 14,
+    "card_index": 13,
+    "card_img": "cards/card_0013.jpg",
+    "header_img": "headers/header_0014.jpg"
+  },
+  {
+    "id": 14,
+    "page": 15,
+    "kanji": 15,
+    "card_index": 14,
+    "card_img": "cards/card_0014.jpg",
+    "header_img": "headers/header_0015.jpg"
+  },
+  {
+    "id": 15,
+    "page": 16,
+    "kanji": 16,
+    "card_index": 15,
+    "card_img": "cards/card_0015.jpg",
+    "header_img": "headers/header_0016.jpg"
+  },
+  {
+    "id": 16,
+    "page": 17,
+    "kanji": 17,
+    "card_index": 16,
+    "card_img": "cards/card_0016.jpg",
+    "header_img": "headers/header_0017.jpg"
+  },
+  {
+    "id": 17,
+    "page": 18,
+    "kanji": 18,
+    "card_index": 17,
+    "card_img": "cards/card_0017.jpg",
+    "header_img": "headers/header_0018.jpg"
+  },
+  {
+    "id": 18,
+    "page": 19,
+    "kanji": 19,
+    "card_index": 18,
+    "card_img": "cards/card_0018.jpg",
+    "header_img": "headers/header_0019.jpg"
+  },
+  {
+    "id": 19,
+    "page": 20,
+    "kanji": 20,
+    "card_index": 19,
+    "card_img": "cards/card_0019.jpg",
+    "header_img": "headers/header_0020.jpg"
+  },
+  {
+    "id": 20,
+    "page": 21,
+    "kanji": 21,
+    "card_index": 20,
+    "card_img": "cards/card_0020.jpg",
+    "header_img": "headers/header_0021.jpg"
+  },
+  {
+    "id": 21,
+    "page": 22,
+    "kanji": 22,
+    "card_index": 21,
+    "card_img": "cards/card_0021.jpg",
+    "header_img": "headers/header_0022.jpg"
+  },
+  {
+    "id": 22,
+    "page": 23,
+    "kanji": 23,
+    "card_index": 22,
+    "card_img": "cards/card_0022.jpg",
+    "header_img": "headers/header_0023.jpg"
+  },
+  {
+    "id": 23,
+    "page": 24,
+    "kanji": 24,
+    "card_index": 23,
+    "card_img": "cards/card_0023.jpg",
+    "header_img": "headers/header_0024.jpg"
+  },
+  {
+    "id": 24,
+    "page": 25,
+    "kanji": 25,
+    "card_index": 24,
+    "card_img": "cards/card_0024.jpg",
+    "header_img": "headers/header_0025.jpg"
+  },
+  {
+    "id": 25,
+    "page": 25,
+    "kanji": 25,
+    "card_index": 25,
+    "card_img": "cards/card_0025.jpg",
+    "header_img": "headers/header_0025.jpg"
+  },
+  {
+    "id": 26,
+    "page": 26,
+    "kanji": 26,
+    "card_index": 26,
+    "card_img": "cards/card_0026.jpg",
+    "header_img": "headers/header_0026.jpg"
+  },
+  {
+    "id": 27,
+    "page": 27,
+    "kanji": 27,
+    "card_index": 27,
+    "card_img": "cards/card_0027.jpg",
+    "header_img": "headers/header_0027.jpg"
+  },
+  {
+    "id": 28,
+    "page": 28,
+    "kanji": 28,
+    "card_index": 28,
+    "card_img": "cards/card_0028.jpg",
+    "header_img": "headers/header_0028.jpg"
+  },
+  {
+    "id": 29,
+    "page": 29,
+    "kanji": 29,
+    "card_index": 29,
+    "card_img": "cards/card_0029.jpg",
+    "header_img": "headers/header_0029.jpg"
+  },
+  {
+    "id": 30,
+    "page": 30,
+    "kanji": 30,
+    "card_index": 30,
+    "card_img": "cards/card_0030.jpg",
+    "header_img": "headers/header_0030.jpg"
+  },
+  {
+    "id": 31,
+    "page": 31,
+    "kanji": 31,
+    "card_index": 31,
+    "card_img": "cards/card_0031.jpg",
+    "header_img": "headers/header_0031.jpg"
+  },
+  {
+    "id": 32,
+    "page": 32,
+    "kanji": 32,
+    "card_index": 32,
+    "card_img": "cards/card_0032.jpg",
+    "header_img": "headers/header_0032.jpg"
+  },
+  {
+    "id": 33,
+    "page": 33,
+    "kanji": 33,
+    "card_index": 33,
+    "card_img": "cards/card_0033.jpg",
+    "header_img": "headers/header_0033.jpg"
+  },
+  {
+    "id": 34,
+    "page": 34,
+    "kanji": 34,
+    "card_index": 34,
+    "card_img": "cards/card_0034.jpg",
+    "header_img": "headers/header_0034.jpg"
+  },
+  {
+    "id": 35,
+    "page": 35,
+    "kanji": 35,
+    "card_index": 35,
+    "card_img": "cards/card_0035.jpg",
+    "header_img": "headers/header_0035.jpg"
+  },
+  {
+    "id": 36,
+    "page": 36,
+    "kanji": 36,
+    "card_index": 36,
+    "card_img": "cards/card_0036.jpg",
+    "header_img": "headers/header_0036.jpg"
+  },
+  {
+    "id": 37,
+    "page": 37,
+    "kanji": 37,
+    "card_index": 37,
+    "card_img": "cards/card_0037.jpg",
+    "header_img": "headers/header_0037.jpg"
+  },
+  {
+    "id": 38,
+    "page": 38,
+    "kanji": 38,
+    "card_index": 38,
+    "card_img": "cards/card_0038.jpg",
+    "header_img": "headers/header_0038.jpg"
+  },
+  {
+    "id": 39,
+    "page": 39,
+    "kanji": 39,
+    "card_index": 39,
+    "card_img": "cards/card_0039.jpg",
+    "header_img": "headers/header_0039.jpg"
+  },
+  {
+    "id": 40,
+    "page": 40,
+    "kanji": 40,
+    "card_index": 40,
+    "card_img": "cards/card_0040.jpg",
+    "header_img": "headers/header_0040.jpg"
+  },
+  {
+    "id": 41,
+    "page": 41,
+    "kanji": 41,
+    "card_index": 41,
+    "card_img": "cards/card_0041.jpg",
+    "header_img": "headers/header_0041.jpg"
+  },
+  {
+    "id": 42,
+    "page": 42,
+    "kanji": 42,
+    "card_index": 42,
+    "card_img": "cards/card_0042.jpg",
+    "header_img": "headers/header_0042.jpg"
+  },
+  {
+    "id": 43,
+    "page": 43,
+    "kanji": 43,
+    "card_index": 43,
+    "card_img": "cards/card_0043.jpg",
+    "header_img": "headers/header_0043.jpg"
+  },
+  {
+    "id": 44,
+    "page": 44,
+    "kanji": 44,
+    "card_index": 44,
+    "card_img": "cards/card_0044.jpg",
+    "header_img": "headers/header_0044.jpg"
+  },
+  {
+    "id": 45,
+    "page": 45,
+    "kanji": 45,
+    "card_index": 45,
+    "card_img": "cards/card_0045.jpg",
+    "header_img": "headers/header_0045.jpg"
+  },
+  {
+    "id": 46,
+    "page": 46,
+    "kanji": 46,
+    "card_index": 46,
+    "card_img": "cards/card_0046.jpg",
+    "header_img": "headers/header_0046.jpg"
+  },
+  {
+    "id": 47,
+    "page": 47,
+    "kanji": 47,
+    "card_index": 47,
+    "card_img": "cards/card_0047.jpg",
+    "header_img": "headers/header_0047.jpg"
+  },
+  {
+    "id": 48,
+    "page": 48,
+    "kanji": 48,
+    "card_index": 48,
+    "card_img": "cards/card_0048.jpg",
+    "header_img": "headers/header_0048.jpg"
+  },
+  {
+    "id": 49,
+    "page": 49,
+    "kanji": 49,
+    "card_index": 49,
+    "card_img": "cards/card_0049.jpg",
+    "header_img": "headers/header_0049.jpg"
+  },
+  {
+    "id": 50,
+    "page": 50,
+    "kanji": 50,
+    "card_index": 50,
+    "card_img": "cards/card_0050.jpg",
+    "header_img": "headers/header_0050.jpg"
+  },
+  {
+    "id": 51,
+    "page": 51,
+    "kanji": 51,
+    "card_index": 51,
+    "card_img": "cards/card_0051.jpg",
+    "header_img": "headers/header_0051.jpg"
+  },
+  {
+    "id": 52,
+    "page": 52,
+    "kanji": 52,
+    "card_index": 52,
+    "card_img": "cards/card_0052.jpg",
+    "header_img": "headers/header_0052.jpg"
+  },
+  {
+    "id": 53,
+    "page": 53,
+    "kanji": 53,
+    "card_index": 53,
+    "card_img": "cards/card_0053.jpg",
+    "header_img": "headers/header_0053.jpg"
+  },
+  {
+    "id": 54,
+    "page": 54,
+    "kanji": 54,
+    "card_index": 54,
+    "card_img": "cards/card_0054.jpg",
+    "header_img": "headers/header_0054.jpg"
+  },
+  {
+    "id": 55,
+    "page": 55,
+    "kanji": 55,
+    "card_index": 55,
+    "card_img": "cards/card_0055.jpg",
+    "header_img": "headers/header_0055.jpg"
+  },
+  {
+    "id": 56,
+    "page": 56,
+    "kanji": 56,
+    "card_index": 56,
+    "card_img": "cards/card_0056.jpg",
+    "header_img": "headers/header_0056.jpg"
+  },
+  {
+    "id": 57,
+    "page": 57,
+    "kanji": 57,
+    "card_index": 57,
+    "card_img": "cards/card_0057.jpg",
+    "header_img": "headers/header_0057.jpg"
+  },
+  {
+    "id": 58,
+    "page": 58,
+    "kanji": 58,
+    "card_index": 58,
+    "card_img": "cards/card_0058.jpg",
+    "header_img": "headers/header_0058.jpg"
+  },
+  {
+    "id": 59,
+    "page": 59,
+    "kanji": 59,
+    "card_index": 59,
+    "card_img": "cards/card_0059.jpg",
+    "header_img": "headers/header_0059.jpg"
+  },
+  {
+    "id": 60,
+    "page": 60,
+    "kanji": 60,
+    "card_index": 60,
+    "card_img": "cards/card_0060.jpg",
+    "header_img": "headers/header_0060.jpg"
+  },
+  {
+    "id": 61,
+    "page": 61,
+    "kanji": 61,
+    "card_index": 61,
+    "card_img": "cards/card_0061.jpg",
+    "header_img": "headers/header_0061.jpg"
+  },
+  {
+    "id": 62,
+    "page": 62,
+    "kanji": 62,
+    "card_index": 62,
+    "card_img": "cards/card_0062.jpg",
+    "header_img": "headers/header_0062.jpg"
+  },
+  {
+    "id": 63,
+    "page": 63,
+    "kanji": 63,
+    "card_index": 63,
+    "card_img": "cards/card_0063.jpg",
+    "header_img": "headers/header_0063.jpg"
+  },
+  {
+    "id": 64,
+    "page": 64,
+    "kanji": 64,
+    "card_index": 64,
+    "card_img": "cards/card_0064.jpg",
+    "header_img": "headers/header_0064.jpg"
+  },
+  {
+    "id": 65,
+    "page": 65,
+    "kanji": 65,
+    "card_index": 65,
+    "card_img": "cards/card_0065.jpg",
+    "header_img": "headers/header_0065.jpg"
+  },
+  {
+    "id": 66,
+    "page": 66,
+    "kanji": 66,
+    "card_index": 66,
+    "card_img": "cards/card_0066.jpg",
+    "header_img": "headers/header_0066.jpg"
+  },
+  {
+    "id": 67,
+    "page": 66,
+    "kanji": 66,
+    "card_index": 67,
+    "card_img": "cards/card_0067.jpg",
+    "header_img": "headers/header_0066.jpg"
+  },
+  {
+    "id": 68,
+    "page": 67,
+    "kanji": 67,
+    "card_index": 68,
+    "card_img": "cards/card_0068.jpg",
+    "header_img": "headers/header_0067.jpg"
+  },
+  {
+    "id": 69,
+    "page": 68,
+    "kanji": 68,
+    "card_index": 69,
+    "card_img": "cards/card_0069.jpg",
+    "header_img": "headers/header_0068.jpg"
+  },
+  {
+    "id": 70,
+    "page": 69,
+    "kanji": 69,
+    "card_index": 70,
+    "card_img": "cards/card_0070.jpg",
+    "header_img": "headers/header_0069.jpg"
+  },
+  {
+    "id": 71,
+    "page": 70,
+    "kanji": 70,
+    "card_index": 71,
+    "card_img": "cards/card_0071.jpg",
+    "header_img": "headers/header_0070.jpg"
+  },
+  {
+    "id": 72,
+    "page": 71,
+    "kanji": 71,
+    "card_index": 72,
+    "card_img": "cards/card_0072.jpg",
+    "header_img": "headers/header_0071.jpg"
+  },
+  {
+    "id": 73,
+    "page": 72,
+    "kanji": 72,
+    "card_index": 73,
+    "card_img": "cards/card_0073.jpg",
+    "header_img": "headers/header_0072.jpg"
+  },
+  {
+    "id": 74,
+    "page": 72,
+    "kanji": 72,
+    "card_index": 74,
+    "card_img": "cards/card_0074.jpg",
+    "header_img": "headers/header_0072.jpg"
+  },
+  {
+    "id": 75,
+    "page": 73,
+    "kanji": 73,
+    "card_index": 75,
+    "card_img": "cards/card_0075.jpg",
+    "header_img": "headers/header_0073.jpg"
+  },
+  {
+    "id": 76,
+    "page": 74,
+    "kanji": 74,
+    "card_index": 76,
+    "card_img": "cards/card_0076.jpg",
+    "header_img": "headers/header_0074.jpg"
+  },
+  {
+    "id": 77,
+    "page": 75,
+    "kanji": 75,
+    "card_index": 77,
+    "card_img": "cards/card_0077.jpg",
+    "header_img": "headers/header_0075.jpg"
+  },
+  {
+    "id": 78,
+    "page": 76,
+    "kanji": 76,
+    "card_index": 78,
+    "card_img": "cards/card_0078.jpg",
+    "header_img": "headers/header_0076.jpg"
+  },
+  {
+    "id": 79,
+    "page": 76,
+    "kanji": 76,
+    "card_index": 79,
+    "card_img": "cards/card_0079.jpg",
+    "header_img": "headers/header_0076.jpg"
+  },
+  {
+    "id": 80,
+    "page": 77,
+    "kanji": 77,
+    "card_index": 80,
+    "card_img": "cards/card_0080.jpg",
+    "header_img": "headers/header_0077.jpg"
+  },
+  {
+    "id": 81,
+    "page": 78,
+    "kanji": 78,
+    "card_index": 81,
+    "card_img": "cards/card_0081.jpg",
+    "header_img": "headers/header_0078.jpg"
+  },
+  {
+    "id": 82,
+    "page": 79,
+    "kanji": 79,
+    "card_index": 82,
+    "card_img": "cards/card_0082.jpg",
+    "header_img": "headers/header_0079.jpg"
+  },
+  {
+    "id": 83,
+    "page": 80,
+    "kanji": 80,
+    "card_index": 83,
+    "card_img": "cards/card_0083.jpg",
+    "header_img": "headers/header_0080.jpg"
+  },
+  {
+    "id": 84,
+    "page": 81,
+    "kanji": 81,
+    "card_index": 84,
+    "card_img": "cards/card_0084.jpg",
+    "header_img": "headers/header_0081.jpg"
+  },
+  {
+    "id": 85,
+    "page": 82,
+    "kanji": 82,
+    "card_index": 86,
+    "card_img": "cards/card_0086.jpg",
+    "header_img": "headers/header_0082.jpg"
+  },
+  {
+    "id": 86,
+    "page": 83,
+    "kanji": 83,
+    "card_index": 87,
+    "card_img": "cards/card_0087.jpg",
+    "header_img": "headers/header_0083.jpg"
+  },
+  {
+    "id": 87,
+    "page": 84,
+    "kanji": 84,
+    "card_index": 88,
+    "card_img": "cards/card_0088.jpg",
+    "header_img": "headers/header_0084.jpg"
+  },
+  {
+    "id": 88,
+    "page": 85,
+    "kanji": 85,
+    "card_index": 89,
+    "card_img": "cards/card_0089.jpg",
+    "header_img": "headers/header_0085.jpg"
+  },
+  {
+    "id": 89,
+    "page": 86,
+    "kanji": 86,
+    "card_index": 90,
+    "card_img": "cards/card_0090.jpg",
+    "header_img": "headers/header_0086.jpg"
+  },
+  {
+    "id": 90,
+    "page": 87,
+    "kanji": 87,
+    "card_index": 91,
+    "card_img": "cards/card_0091.jpg",
+    "header_img": "headers/header_0087.jpg"
+  },
+  {
+    "id": 91,
+    "page": 88,
+    "kanji": 88,
+    "card_index": 92,
+    "card_img": "cards/card_0092.jpg",
+    "header_img": "headers/header_0088.jpg"
+  },
+  {
+    "id": 92,
+    "page": 89,
+    "kanji": 89,
+    "card_index": 93,
+    "card_img": "cards/card_0093.jpg",
+    "header_img": "headers/header_0089.jpg"
+  },
+  {
+    "id": 93,
+    "page": 89,
+    "kanji": 89,
+    "card_index": 94,
+    "card_img": "cards/card_0094.jpg",
+    "header_img": "headers/header_0089.jpg"
+  },
+  {
+    "id": 94,
+    "page": 90,
+    "kanji": 90,
+    "card_index": 95,
+    "card_img": "cards/card_0095.jpg",
+    "header_img": "headers/header_0090.jpg"
+  },
+  {
+    "id": 95,
+    "page": 91,
+    "kanji": 91,
+    "card_index": 96,
+    "card_img": "cards/card_0096.jpg",
+    "header_img": "headers/header_0091.jpg"
+  },
+  {
+    "id": 96,
+    "page": 91,
+    "kanji": 91,
+    "card_index": 97,
+    "card_img": "cards/card_0097.jpg",
+    "header_img": "headers/header_0091.jpg"
+  },
+  {
+    "id": 97,
+    "page": 92,
+    "kanji": 92,
+    "card_index": 98,
+    "card_img": "cards/card_0098.jpg",
+    "header_img": "headers/header_0092.jpg"
+  },
+  {
+    "id": 98,
+    "page": 93,
+    "kanji": 93,
+    "card_index": 99,
+    "card_img": "cards/card_0099.jpg",
+    "header_img": "headers/header_0093.jpg"
+  },
+  {
+    "id": 99,
+    "page": 94,
+    "kanji": 94,
+    "card_index": 100,
+    "card_img": "cards/card_0100.jpg",
+    "header_img": "headers/header_0094.jpg"
+  },
+  {
+    "id": 100,
+    "page": 95,
+    "kanji": 95,
+    "card_index": 101,
+    "card_img": "cards/card_0101.jpg",
+    "header_img": "headers/header_0095.jpg"
+  },
+  {
+    "id": 101,
+    "page": 95,
+    "kanji": 95,
+    "card_index": 102,
+    "card_img": "cards/card_0102.jpg",
+    "header_img": "headers/header_0095.jpg"
+  },
+  {
+    "id": 102,
+    "page": 96,
+    "kanji": 96,
+    "card_index": 103,
+    "card_img": "cards/card_0103.jpg",
+    "header_img": "headers/header_0096.jpg"
+  },
+  {
+    "id": 103,
+    "page": 97,
+    "kanji": 97,
+    "card_index": 104,
+    "card_img": "cards/card_0104.jpg",
+    "header_img": "headers/header_0097.jpg"
+  },
+  {
+    "id": 104,
+    "page": 97,
+    "kanji": 97,
+    "card_index": 105,
+    "card_img": "cards/card_0105.jpg",
+    "header_img": "headers/header_0097.jpg"
+  },
+  {
+    "id": 105,
+    "page": 98,
+    "kanji": 98,
+    "card_index": 106,
+    "card_img": "cards/card_0106.jpg",
+    "header_img": "headers/header_0098.jpg"
+  },
+  {
+    "id": 106,
+    "page": 99,
+    "kanji": 99,
+    "card_index": 107,
+    "card_img": "cards/card_0107.jpg",
+    "header_img": "headers/header_0099.jpg"
+  },
+  {
+    "id": 107,
+    "page": 100,
+    "kanji": 100,
+    "card_index": 108,
+    "card_img": "cards/card_0108.jpg",
+    "header_img": "headers/header_0100.jpg"
+  },
+  {
+    "id": 108,
+    "page": 101,
+    "kanji": 101,
+    "card_index": 109,
+    "card_img": "cards/card_0109.jpg",
+    "header_img": "headers/header_0101.jpg"
+  },
+  {
+    "id": 109,
+    "page": 102,
+    "kanji": 102,
+    "card_index": 110,
+    "card_img": "cards/card_0110.jpg",
+    "header_img": "headers/header_0102.jpg"
+  },
+  {
+    "id": 110,
+    "page": 103,
+    "kanji": 103,
+    "card_index": 111,
+    "card_img": "cards/card_0111.jpg",
+    "header_img": "headers/header_0103.jpg"
+  },
+  {
+    "id": 111,
+    "page": 104,
+    "kanji": 104,
+    "card_index": 112,
+    "card_img": "cards/card_0112.jpg",
+    "header_img": "headers/header_0104.jpg"
+  },
+  {
+    "id": 112,
+    "page": 105,
+    "kanji": 105,
+    "card_index": 113,
+    "card_img": "cards/card_0113.jpg",
+    "header_img": "headers/header_0105.jpg"
+  },
+  {
+    "id": 113,
+    "page": 106,
+    "kanji": 106,
+    "card_index": 114,
+    "card_img": "cards/card_0114.jpg",
+    "header_img": "headers/header_0106.jpg"
+  },
+  {
+    "id": 114,
+    "page": 107,
+    "kanji": 107,
+    "card_index": 115,
+    "card_img": "cards/card_0115.jpg",
+    "header_img": "headers/header_0107.jpg"
+  },
+  {
+    "id": 115,
+    "page": 108,
+    "kanji": 108,
+    "card_index": 116,
+    "card_img": "cards/card_0116.jpg",
+    "header_img": "headers/header_0108.jpg"
+  },
+  {
+    "id": 116,
+    "page": 109,
+    "kanji": 109,
+    "card_index": 117,
+    "card_img": "cards/card_0117.jpg",
+    "header_img": "headers/header_0109.jpg"
+  },
+  {
+    "id": 117,
+    "page": 110,
+    "kanji": 110,
+    "card_index": 118,
+    "card_img": "cards/card_0118.jpg",
+    "header_img": "headers/header_0110.jpg"
+  },
+  {
+    "id": 118,
+    "page": 111,
+    "kanji": 111,
+    "card_index": 119,
+    "card_img": "cards/card_0119.jpg",
+    "header_img": "headers/header_0111.jpg"
+  },
+  {
+    "id": 119,
+    "page": 112,
+    "kanji": 112,
+    "card_index": 120,
+    "card_img": "cards/card_0120.jpg",
+    "header_img": "headers/header_0112.jpg"
+  },
+  {
+    "id": 120,
+    "page": 113,
+    "kanji": 113,
+    "card_index": 121,
+    "card_img": "cards/card_0121.jpg",
+    "header_img": "headers/header_0113.jpg"
+  },
+  {
+    "id": 121,
+    "page": 114,
+    "kanji": 114,
+    "card_index": 122,
+    "card_img": "cards/card_0122.jpg",
+    "header_img": "headers/header_0114.jpg"
+  },
+  {
+    "id": 122,
+    "page": 115,
+    "kanji": 115,
+    "card_index": 123,
+    "card_img": "cards/card_0123.jpg",
+    "header_img": "headers/header_0115.jpg"
+  },
+  {
+    "id": 123,
+    "page": 115,
+    "kanji": 115,
+    "card_index": 124,
+    "card_img": "cards/card_0124.jpg",
+    "header_img": "headers/header_0115.jpg"
+  },
+  {
+    "id": 124,
+    "page": 116,
+    "kanji": 116,
+    "card_index": 125,
+    "card_img": "cards/card_0125.jpg",
+    "header_img": "headers/header_0116.jpg"
+  },
+  {
+    "id": 125,
+    "page": 117,
+    "kanji": 117,
+    "card_index": 126,
+    "card_img": "cards/card_0126.jpg",
+    "header_img": "headers/header_0117.jpg"
+  },
+  {
+    "id": 126,
+    "page": 118,
+    "kanji": 118,
+    "card_index": 127,
+    "card_img": "cards/card_0127.jpg",
+    "header_img": "headers/header_0118.jpg"
+  },
+  {
+    "id": 127,
+    "page": 119,
+    "kanji": 119,
+    "card_index": 128,
+    "card_img": "cards/card_0128.jpg",
+    "header_img": "headers/header_0119.jpg"
+  },
+  {
+    "id": 128,
+    "page": 120,
+    "kanji": 120,
+    "card_index": 129,
+    "card_img": "cards/card_0129.jpg",
+    "header_img": "headers/header_0120.jpg"
+  },
+  {
+    "id": 129,
+    "page": 121,
+    "kanji": 121,
+    "card_index": 130,
+    "card_img": "cards/card_0130.jpg",
+    "header_img": "headers/header_0121.jpg"
+  },
+  {
+    "id": 130,
+    "page": 122,
+    "kanji": 122,
+    "card_index": 131,
+    "card_img": "cards/card_0131.jpg",
+    "header_img": "headers/header_0122.jpg"
+  },
+  {
+    "id": 131,
+    "page": 123,
+    "kanji": 123,
+    "card_index": 132,
+    "card_img": "cards/card_0132.jpg",
+    "header_img": "headers/header_0123.jpg"
+  },
+  {
+    "id": 132,
+    "page": 124,
+    "kanji": 124,
+    "card_index": 133,
+    "card_img": "cards/card_0133.jpg",
+    "header_img": "headers/header_0124.jpg"
+  },
+  {
+    "id": 133,
+    "page": 125,
+    "kanji": 125,
+    "card_index": 134,
+    "card_img": "cards/card_0134.jpg",
+    "header_img": "headers/header_0125.jpg"
+  },
+  {
+    "id": 134,
+    "page": 126,
+    "kanji": 126,
+    "card_index": 135,
+    "card_img": "cards/card_0135.jpg",
+    "header_img": "headers/header_0126.jpg"
+  },
+  {
+    "id": 135,
+    "page": 127,
+    "kanji": 127,
+    "card_index": 136,
+    "card_img": "cards/card_0136.jpg",
+    "header_img": "headers/header_0127.jpg"
+  },
+  {
+    "id": 136,
+    "page": 128,
+    "kanji": 128,
+    "card_index": 137,
+    "card_img": "cards/card_0137.jpg",
+    "header_img": "headers/header_0128.jpg"
+  },
+  {
+    "id": 137,
+    "page": 129,
+    "kanji": 129,
+    "card_index": 138,
+    "card_img": "cards/card_0138.jpg",
+    "header_img": "headers/header_0129.jpg"
+  },
+  {
+    "id": 138,
+    "page": 130,
+    "kanji": 130,
+    "card_index": 139,
+    "card_img": "cards/card_0139.jpg",
+    "header_img": "headers/header_0130.jpg"
+  },
+  {
+    "id": 139,
+    "page": 131,
+    "kanji": 131,
+    "card_index": 140,
+    "card_img": "cards/card_0140.jpg",
+    "header_img": "headers/header_0131.jpg"
+  },
+  {
+    "id": 140,
+    "page": 132,
+    "kanji": 132,
+    "card_index": 141,
+    "card_img": "cards/card_0141.jpg",
+    "header_img": "headers/header_0132.jpg"
+  },
+  {
+    "id": 141,
+    "page": 133,
+    "kanji": 133,
+    "card_index": 142,
+    "card_img": "cards/card_0142.jpg",
+    "header_img": "headers/header_0133.jpg"
+  },
+  {
+    "id": 142,
+    "page": 134,
+    "kanji": 134,
+    "card_index": 143,
+    "card_img": "cards/card_0143.jpg",
+    "header_img": "headers/header_0134.jpg"
+  },
+  {
+    "id": 143,
+    "page": 135,
+    "kanji": 135,
+    "card_index": 144,
+    "card_img": "cards/card_0144.jpg",
+    "header_img": "headers/header_0135.jpg"
+  },
+  {
+    "id": 144,
+    "page": 136,
+    "kanji": 136,
+    "card_index": 145,
+    "card_img": "cards/card_0145.jpg",
+    "header_img": "headers/header_0136.jpg"
+  },
+  {
+    "id": 145,
+    "page": 137,
+    "kanji": 137,
+    "card_index": 146,
+    "card_img": "cards/card_0146.jpg",
+    "header_img": "headers/header_0137.jpg"
+  },
+  {
+    "id": 146,
+    "page": 138,
+    "kanji": 138,
+    "card_index": 147,
+    "card_img": "cards/card_0147.jpg",
+    "header_img": "headers/header_0138.jpg"
+  },
+  {
+    "id": 147,
+    "page": 139,
+    "kanji": 139,
+    "card_index": 148,
+    "card_img": "cards/card_0148.jpg",
+    "header_img": "headers/header_0139.jpg"
+  },
+  {
+    "id": 148,
+    "page": 140,
+    "kanji": 140,
+    "card_index": 149,
+    "card_img": "cards/card_0149.jpg",
+    "header_img": "headers/header_0140.jpg"
+  },
+  {
+    "id": 149,
+    "page": 141,
+    "kanji": 141,
+    "card_index": 150,
+    "card_img": "cards/card_0150.jpg",
+    "header_img": "headers/header_0141.jpg"
+  },
+  {
+    "id": 150,
+    "page": 142,
+    "kanji": 142,
+    "card_index": 151,
+    "card_img": "cards/card_0151.jpg",
+    "header_img": "headers/header_0142.jpg"
+  },
+  {
+    "id": 151,
+    "page": 143,
+    "kanji": 143,
+    "card_index": 152,
+    "card_img": "cards/card_0152.jpg",
+    "header_img": "headers/header_0143.jpg"
+  },
+  {
+    "id": 152,
+    "page": 144,
+    "kanji": 144,
+    "card_index": 153,
+    "card_img": "cards/card_0153.jpg",
+    "header_img": "headers/header_0144.jpg"
+  },
+  {
+    "id": 153,
+    "page": 145,
+    "kanji": 145,
+    "card_index": 154,
+    "card_img": "cards/card_0154.jpg",
+    "header_img": "headers/header_0145.jpg"
+  },
+  {
+    "id": 154,
+    "page": 146,
+    "kanji": 146,
+    "card_index": 155,
+    "card_img": "cards/card_0155.jpg",
+    "header_img": "headers/header_0146.jpg"
+  },
+  {
+    "id": 155,
+    "page": 147,
+    "kanji": 147,
+    "card_index": 156,
+    "card_img": "cards/card_0156.jpg",
+    "header_img": "headers/header_0147.jpg"
+  },
+  {
+    "id": 156,
+    "page": 147,
+    "kanji": 147,
+    "card_index": 157,
+    "card_img": "cards/card_0157.jpg",
+    "header_img": "headers/header_0147.jpg"
+  },
+  {
+    "id": 157,
+    "page": 148,
+    "kanji": 148,
+    "card_index": 158,
+    "card_img": "cards/card_0158.jpg",
+    "header_img": "headers/header_0148.jpg"
+  },
+  {
+    "id": 158,
+    "page": 149,
+    "kanji": 149,
+    "card_index": 159,
+    "card_img": "cards/card_0159.jpg",
+    "header_img": "headers/header_0149.jpg"
+  },
+  {
+    "id": 159,
+    "page": 150,
+    "kanji": 150,
+    "card_index": 160,
+    "card_img": "cards/card_0160.jpg",
+    "header_img": "headers/header_0150.jpg"
+  },
+  {
+    "id": 160,
+    "page": 151,
+    "kanji": 151,
+    "card_index": 161,
+    "card_img": "cards/card_0161.jpg",
+    "header_img": "headers/header_0151.jpg"
+  },
+  {
+    "id": 161,
+    "page": 152,
+    "kanji": 152,
+    "card_index": 162,
+    "card_img": "cards/card_0162.jpg",
+    "header_img": "headers/header_0152.jpg"
+  },
+  {
+    "id": 162,
+    "page": 153,
+    "kanji": 153,
+    "card_index": 163,
+    "card_img": "cards/card_0163.jpg",
+    "header_img": "headers/header_0153.jpg"
+  },
+  {
+    "id": 163,
+    "page": 154,
+    "kanji": 154,
+    "card_index": 164,
+    "card_img": "cards/card_0164.jpg",
+    "header_img": "headers/header_0154.jpg"
+  },
+  {
+    "id": 164,
+    "page": 155,
+    "kanji": 155,
+    "card_index": 165,
+    "card_img": "cards/card_0165.jpg",
+    "header_img": "headers/header_0155.jpg"
+  },
+  {
+    "id": 165,
+    "page": 156,
+    "kanji": 156,
+    "card_index": 166,
+    "card_img": "cards/card_0166.jpg",
+    "header_img": "headers/header_0156.jpg"
+  },
+  {
+    "id": 166,
+    "page": 157,
+    "kanji": 157,
+    "card_index": 167,
+    "card_img": "cards/card_0167.jpg",
+    "header_img": "headers/header_0157.jpg"
+  },
+  {
+    "id": 167,
+    "page": 158,
+    "kanji": 158,
+    "card_index": 168,
+    "card_img": "cards/card_0168.jpg",
+    "header_img": "headers/header_0158.jpg"
+  },
+  {
+    "id": 168,
+    "page": 159,
+    "kanji": 159,
+    "card_index": 169,
+    "card_img": "cards/card_0169.jpg",
+    "header_img": "headers/header_0159.jpg"
+  },
+  {
+    "id": 169,
+    "page": 160,
+    "kanji": 160,
+    "card_index": 170,
+    "card_img": "cards/card_0170.jpg",
+    "header_img": "headers/header_0160.jpg"
+  },
+  {
+    "id": 170,
+    "page": 161,
+    "kanji": 161,
+    "card_index": 171,
+    "card_img": "cards/card_0171.jpg",
+    "header_img": "headers/header_0161.jpg"
+  },
+  {
+    "id": 171,
+    "page": 162,
+    "kanji": 162,
+    "card_index": 172,
+    "card_img": "cards/card_0172.jpg",
+    "header_img": "headers/header_0162.jpg"
+  },
+  {
+    "id": 172,
+    "page": 163,
+    "kanji": 163,
+    "card_index": 173,
+    "card_img": "cards/card_0173.jpg",
+    "header_img": "headers/header_0163.jpg"
+  },
+  {
+    "id": 173,
+    "page": 164,
+    "kanji": 164,
+    "card_index": 174,
+    "card_img": "cards/card_0174.jpg",
+    "header_img": "headers/header_0164.jpg"
+  },
+  {
+    "id": 174,
+    "page": 165,
+    "kanji": 165,
+    "card_index": 175,
+    "card_img": "cards/card_0175.jpg",
+    "header_img": "headers/header_0165.jpg"
+  },
+  {
+    "id": 175,
+    "page": 166,
+    "kanji": 166,
+    "card_index": 176,
+    "card_img": "cards/card_0176.jpg",
+    "header_img": "headers/header_0166.jpg"
+  },
+  {
+    "id": 176,
+    "page": 167,
+    "kanji": 167,
+    "card_index": 177,
+    "card_img": "cards/card_0177.jpg",
+    "header_img": "headers/header_0167.jpg"
+  },
+  {
+    "id": 177,
+    "page": 168,
+    "kanji": 168,
+    "card_index": 178,
+    "card_img": "cards/card_0178.jpg",
+    "header_img": "headers/header_0168.jpg"
+  },
+  {
+    "id": 178,
+    "page": 169,
+    "kanji": 169,
+    "card_index": 179,
+    "card_img": "cards/card_0179.jpg",
+    "header_img": "headers/header_0169.jpg"
+  },
+  {
+    "id": 179,
+    "page": 170,
+    "kanji": 170,
+    "card_index": 180,
+    "card_img": "cards/card_0180.jpg",
+    "header_img": "headers/header_0170.jpg"
+  },
+  {
+    "id": 180,
+    "page": 171,
+    "kanji": 171,
+    "card_index": 181,
+    "card_img": "cards/card_0181.jpg",
+    "header_img": "headers/header_0171.jpg"
+  },
+  {
+    "id": 181,
+    "page": 172,
+    "kanji": 172,
+    "card_index": 182,
+    "card_img": "cards/card_0182.jpg",
+    "header_img": "headers/header_0172.jpg"
+  },
+  {
+    "id": 182,
+    "page": 173,
+    "kanji": 173,
+    "card_index": 183,
+    "card_img": "cards/card_0183.jpg",
+    "header_img": "headers/header_0173.jpg"
+  },
+  {
+    "id": 183,
+    "page": 174,
+    "kanji": 174,
+    "card_index": 184,
+    "card_img": "cards/card_0184.jpg",
+    "header_img": "headers/header_0174.jpg"
+  },
+  {
+    "id": 184,
+    "page": 175,
+    "kanji": 175,
+    "card_index": 185,
+    "card_img": "cards/card_0185.jpg",
+    "header_img": "headers/header_0175.jpg"
+  },
+  {
+    "id": 185,
+    "page": 176,
+    "kanji": 176,
+    "card_index": 186,
+    "card_img": "cards/card_0186.jpg",
+    "header_img": "headers/header_0176.jpg"
+  },
+  {
+    "id": 186,
+    "page": 177,
+    "kanji": 177,
+    "card_index": 187,
+    "card_img": "cards/card_0187.jpg",
+    "header_img": "headers/header_0177.jpg"
+  },
+  {
+    "id": 187,
+    "page": 178,
+    "kanji": 178,
+    "card_index": 188,
+    "card_img": "cards/card_0188.jpg",
+    "header_img": "headers/header_0178.jpg"
+  },
+  {
+    "id": 188,
+    "page": 179,
+    "kanji": 179,
+    "card_index": 189,
+    "card_img": "cards/card_0189.jpg",
+    "header_img": "headers/header_0179.jpg"
+  },
+  {
+    "id": 189,
+    "page": 180,
+    "kanji": 180,
+    "card_index": 190,
+    "card_img": "cards/card_0190.jpg",
+    "header_img": "headers/header_0180.jpg"
+  },
+  {
+    "id": 190,
+    "page": 181,
+    "kanji": 181,
+    "card_index": 191,
+    "card_img": "cards/card_0191.jpg",
+    "header_img": "headers/header_0181.jpg"
+  },
+  {
+    "id": 191,
+    "page": 182,
+    "kanji": 182,
+    "card_index": 192,
+    "card_img": "cards/card_0192.jpg",
+    "header_img": "headers/header_0182.jpg"
+  },
+  {
+    "id": 192,
+    "page": 183,
+    "kanji": 183,
+    "card_index": 193,
+    "card_img": "cards/card_0193.jpg",
+    "header_img": "headers/header_0183.jpg"
+  },
+  {
+    "id": 193,
+    "page": 184,
+    "kanji": 184,
+    "card_index": 194,
+    "card_img": "cards/card_0194.jpg",
+    "header_img": "headers/header_0184.jpg"
+  },
+  {
+    "id": 194,
+    "page": 185,
+    "kanji": 185,
+    "card_index": 195,
+    "card_img": "cards/card_0195.jpg",
+    "header_img": "headers/header_0185.jpg"
+  },
+  {
+    "id": 195,
+    "page": 186,
+    "kanji": 186,
+    "card_index": 196,
+    "card_img": "cards/card_0196.jpg",
+    "header_img": "headers/header_0186.jpg"
+  },
+  {
+    "id": 196,
+    "page": 187,
+    "kanji": 187,
+    "card_index": 197,
+    "card_img": "cards/card_0197.jpg",
+    "header_img": "headers/header_0187.jpg"
+  },
+  {
+    "id": 197,
+    "page": 188,
+    "kanji": 188,
+    "card_index": 198,
+    "card_img": "cards/card_0198.jpg",
+    "header_img": "headers/header_0188.jpg"
+  },
+  {
+    "id": 198,
+    "page": 189,
+    "kanji": 189,
+    "card_index": 199,
+    "card_img": "cards/card_0199.jpg",
+    "header_img": "headers/header_0189.jpg"
+  },
+  {
+    "id": 199,
+    "page": 190,
+    "kanji": 190,
+    "card_index": 200,
+    "card_img": "cards/card_0200.jpg",
+    "header_img": "headers/header_0190.jpg"
+  },
+  {
+    "id": 200,
+    "page": 191,
+    "kanji": 191,
+    "card_index": 201,
+    "card_img": "cards/card_0201.jpg",
+    "header_img": "headers/header_0191.jpg"
+  },
+  {
+    "id": 201,
+    "page": 192,
+    "kanji": 192,
+    "card_index": 202,
+    "card_img": "cards/card_0202.jpg",
+    "header_img": "headers/header_0192.jpg"
+  },
+  {
+    "id": 202,
+    "page": 193,
+    "kanji": 193,
+    "card_index": 203,
+    "card_img": "cards/card_0203.jpg",
+    "header_img": "headers/header_0193.jpg"
+  },
+  {
+    "id": 203,
+    "page": 194,
+    "kanji": 194,
+    "card_index": 204,
+    "card_img": "cards/card_0204.jpg",
+    "header_img": "headers/header_0194.jpg"
+  },
+  {
+    "id": 204,
+    "page": 195,
+    "kanji": 195,
+    "card_index": 205,
+    "card_img": "cards/card_0205.jpg",
+    "header_img": "headers/header_0195.jpg"
+  },
+  {
+    "id": 205,
+    "page": 196,
+    "kanji": 196,
+    "card_index": 206,
+    "card_img": "cards/card_0206.jpg",
+    "header_img": "headers/header_0196.jpg"
+  },
+  {
+    "id": 206,
+    "page": 197,
+    "kanji": 197,
+    "card_index": 207,
+    "card_img": "cards/card_0207.jpg",
+    "header_img": "headers/header_0197.jpg"
+  },
+  {
+    "id": 207,
+    "page": 198,
+    "kanji": 198,
+    "card_index": 208,
+    "card_img": "cards/card_0208.jpg",
+    "header_img": "headers/header_0198.jpg"
+  },
+  {
+    "id": 208,
+    "page": 199,
+    "kanji": 199,
+    "card_index": 209,
+    "card_img": "cards/card_0209.jpg",
+    "header_img": "headers/header_0199.jpg"
+  },
+  {
+    "id": 209,
+    "page": 200,
+    "kanji": 200,
+    "card_index": 210,
+    "card_img": "cards/card_0210.jpg",
+    "header_img": "headers/header_0200.jpg"
+  },
+  {
+    "id": 210,
+    "page": 201,
+    "kanji": 201,
+    "card_index": 211,
+    "card_img": "cards/card_0211.jpg",
+    "header_img": "headers/header_0201.jpg"
+  },
+  {
+    "id": 211,
+    "page": 202,
+    "kanji": 202,
+    "card_index": 212,
+    "card_img": "cards/card_0212.jpg",
+    "header_img": "headers/header_0202.jpg"
+  },
+  {
+    "id": 212,
+    "page": 203,
+    "kanji": 203,
+    "card_index": 213,
+    "card_img": "cards/card_0213.jpg",
+    "header_img": "headers/header_0203.jpg"
+  },
+  {
+    "id": 213,
+    "page": 204,
+    "kanji": 204,
+    "card_index": 214,
+    "card_img": "cards/card_0214.jpg",
+    "header_img": "headers/header_0204.jpg"
+  },
+  {
+    "id": 214,
+    "page": 205,
+    "kanji": 205,
+    "card_index": 215,
+    "card_img": "cards/card_0215.jpg",
+    "header_img": "headers/header_0205.jpg"
+  },
+  {
+    "id": 215,
+    "page": 206,
+    "kanji": 206,
+    "card_index": 216,
+    "card_img": "cards/card_0216.jpg",
+    "header_img": "headers/header_0206.jpg"
+  },
+  {
+    "id": 216,
+    "page": 207,
+    "kanji": 207,
+    "card_index": 217,
+    "card_img": "cards/card_0217.jpg",
+    "header_img": "headers/header_0207.jpg"
+  },
+  {
+    "id": 217,
+    "page": 208,
+    "kanji": 208,
+    "card_index": 218,
+    "card_img": "cards/card_0218.jpg",
+    "header_img": "headers/header_0208.jpg"
+  },
+  {
+    "id": 218,
+    "page": 209,
+    "kanji": 209,
+    "card_index": 219,
+    "card_img": "cards/card_0219.jpg",
+    "header_img": "headers/header_0209.jpg"
+  },
+  {
+    "id": 219,
+    "page": 210,
+    "kanji": 210,
+    "card_index": 220,
+    "card_img": "cards/card_0220.jpg",
+    "header_img": "headers/header_0210.jpg"
+  },
+  {
+    "id": 220,
+    "page": 211,
+    "kanji": 211,
+    "card_index": 221,
+    "card_img": "cards/card_0221.jpg",
+    "header_img": "headers/header_0211.jpg"
+  },
+  {
+    "id": 221,
+    "page": 212,
+    "kanji": 212,
+    "card_index": 222,
+    "card_img": "cards/card_0222.jpg",
+    "header_img": "headers/header_0212.jpg"
+  },
+  {
+    "id": 222,
+    "page": 213,
+    "kanji": 213,
+    "card_index": 223,
+    "card_img": "cards/card_0223.jpg",
+    "header_img": "headers/header_0213.jpg"
+  },
+  {
+    "id": 223,
+    "page": 214,
+    "kanji": 214,
+    "card_index": 224,
+    "card_img": "cards/card_0224.jpg",
+    "header_img": "headers/header_0214.jpg"
+  },
+  {
+    "id": 224,
+    "page": 215,
+    "kanji": 215,
+    "card_index": 225,
+    "card_img": "cards/card_0225.jpg",
+    "header_img": "headers/header_0215.jpg"
+  },
+  {
+    "id": 225,
+    "page": 216,
+    "kanji": 216,
+    "card_index": 226,
+    "card_img": "cards/card_0226.jpg",
+    "header_img": "headers/header_0216.jpg"
+  },
+  {
+    "id": 226,
+    "page": 217,
+    "kanji": 217,
+    "card_index": 227,
+    "card_img": "cards/card_0227.jpg",
+    "header_img": "headers/header_0217.jpg"
+  },
+  {
+    "id": 227,
+    "page": 218,
+    "kanji": 218,
+    "card_index": 228,
+    "card_img": "cards/card_0228.jpg",
+    "header_img": "headers/header_0218.jpg"
+  },
+  {
+    "id": 228,
+    "page": 219,
+    "kanji": 219,
+    "card_index": 229,
+    "card_img": "cards/card_0229.jpg",
+    "header_img": "headers/header_0219.jpg"
+  },
+  {
+    "id": 229,
+    "page": 220,
+    "kanji": 220,
+    "card_index": 230,
+    "card_img": "cards/card_0230.jpg",
+    "header_img": "headers/header_0220.jpg"
+  },
+  {
+    "id": 230,
+    "page": 221,
+    "kanji": 221,
+    "card_index": 231,
+    "card_img": "cards/card_0231.jpg",
+    "header_img": "headers/header_0221.jpg"
+  },
+  {
+    "id": 231,
+    "page": 222,
+    "kanji": 222,
+    "card_index": 232,
+    "card_img": "cards/card_0232.jpg",
+    "header_img": "headers/header_0222.jpg"
+  },
+  {
+    "id": 232,
+    "page": 223,
+    "kanji": 223,
+    "card_index": 233,
+    "card_img": "cards/card_0233.jpg",
+    "header_img": "headers/header_0223.jpg"
+  },
+  {
+    "id": 233,
+    "page": 224,
+    "kanji": 224,
+    "card_index": 234,
+    "card_img": "cards/card_0234.jpg",
+    "header_img": "headers/header_0224.jpg"
+  },
+  {
+    "id": 234,
+    "page": 225,
+    "kanji": 225,
+    "card_index": 235,
+    "card_img": "cards/card_0235.jpg",
+    "header_img": "headers/header_0225.jpg"
+  },
+  {
+    "id": 235,
+    "page": 226,
+    "kanji": 226,
+    "card_index": 236,
+    "card_img": "cards/card_0236.jpg",
+    "header_img": "headers/header_0226.jpg"
+  },
+  {
+    "id": 236,
+    "page": 227,
+    "kanji": 227,
+    "card_index": 237,
+    "card_img": "cards/card_0237.jpg",
+    "header_img": "headers/header_0227.jpg"
+  },
+  {
+    "id": 237,
+    "page": 228,
+    "kanji": 228,
+    "card_index": 238,
+    "card_img": "cards/card_0238.jpg",
+    "header_img": "headers/header_0228.jpg"
+  },
+  {
+    "id": 238,
+    "page": 229,
+    "kanji": 229,
+    "card_index": 239,
+    "card_img": "cards/card_0239.jpg",
+    "header_img": "headers/header_0229.jpg"
+  },
+  {
+    "id": 239,
+    "page": 230,
+    "kanji": 230,
+    "card_index": 240,
+    "card_img": "cards/card_0240.jpg",
+    "header_img": "headers/header_0230.jpg"
+  },
+  {
+    "id": 240,
+    "page": 231,
+    "kanji": 231,
+    "card_index": 241,
+    "card_img": "cards/card_0241.jpg",
+    "header_img": "headers/header_0231.jpg"
+  },
+  {
+    "id": 241,
+    "page": 232,
+    "kanji": 232,
+    "card_index": 242,
+    "card_img": "cards/card_0242.jpg",
+    "header_img": "headers/header_0232.jpg"
+  },
+  {
+    "id": 242,
+    "page": 233,
+    "kanji": 233,
+    "card_index": 243,
+    "card_img": "cards/card_0243.jpg",
+    "header_img": "headers/header_0233.jpg"
+  },
+  {
+    "id": 243,
+    "page": 234,
+    "kanji": 234,
+    "card_index": 244,
+    "card_img": "cards/card_0244.jpg",
+    "header_img": "headers/header_0234.jpg"
+  },
+  {
+    "id": 244,
+    "page": 235,
+    "kanji": 235,
+    "card_index": 245,
+    "card_img": "cards/card_0245.jpg",
+    "header_img": "headers/header_0235.jpg"
+  },
+  {
+    "id": 245,
+    "page": 236,
+    "kanji": 236,
+    "card_index": 246,
+    "card_img": "cards/card_0246.jpg",
+    "header_img": "headers/header_0236.jpg"
+  },
+  {
+    "id": 246,
+    "page": 237,
+    "kanji": 237,
+    "card_index": 247,
+    "card_img": "cards/card_0247.jpg",
+    "header_img": "headers/header_0237.jpg"
+  },
+  {
+    "id": 247,
+    "page": 238,
+    "kanji": 238,
+    "card_index": 248,
+    "card_img": "cards/card_0248.jpg",
+    "header_img": "headers/header_0238.jpg"
+  },
+  {
+    "id": 248,
+    "page": 239,
+    "kanji": 239,
+    "card_index": 249,
+    "card_img": "cards/card_0249.jpg",
+    "header_img": "headers/header_0239.jpg"
+  },
+  {
+    "id": 249,
+    "page": 240,
+    "kanji": 240,
+    "card_index": 250,
+    "card_img": "cards/card_0250.jpg",
+    "header_img": "headers/header_0240.jpg"
+  },
+  {
+    "id": 250,
+    "page": 241,
+    "kanji": 241,
+    "card_index": 251,
+    "card_img": "cards/card_0251.jpg",
+    "header_img": "headers/header_0241.jpg"
+  },
+  {
+    "id": 251,
+    "page": 242,
+    "kanji": 242,
+    "card_index": 252,
+    "card_img": "cards/card_0252.jpg",
+    "header_img": "headers/header_0242.jpg"
+  },
+  {
+    "id": 252,
+    "page": 243,
+    "kanji": 243,
+    "card_index": 253,
+    "card_img": "cards/card_0253.jpg",
+    "header_img": "headers/header_0243.jpg"
+  },
+  {
+    "id": 253,
+    "page": 244,
+    "kanji": 244,
+    "card_index": 254,
+    "card_img": "cards/card_0254.jpg",
+    "header_img": "headers/header_0244.jpg"
+  },
+  {
+    "id": 254,
+    "page": 245,
+    "kanji": 245,
+    "card_index": 255,
+    "card_img": "cards/card_0255.jpg",
+    "header_img": "headers/header_0245.jpg"
+  },
+  {
+    "id": 255,
+    "page": 246,
+    "kanji": 246,
+    "card_index": 256,
+    "card_img": "cards/card_0256.jpg",
+    "header_img": "headers/header_0246.jpg"
+  },
+  {
+    "id": 256,
+    "page": 247,
+    "kanji": 247,
+    "card_index": 257,
+    "card_img": "cards/card_0257.jpg",
+    "header_img": "headers/header_0247.jpg"
+  },
+  {
+    "id": 257,
+    "page": 248,
+    "kanji": 248,
+    "card_index": 258,
+    "card_img": "cards/card_0258.jpg",
+    "header_img": "headers/header_0248.jpg"
+  },
+  {
+    "id": 258,
+    "page": 249,
+    "kanji": 249,
+    "card_index": 259,
+    "card_img": "cards/card_0259.jpg",
+    "header_img": "headers/header_0249.jpg"
+  },
+  {
+    "id": 259,
+    "page": 250,
+    "kanji": 250,
+    "card_index": 260,
+    "card_img": "cards/card_0260.jpg",
+    "header_img": "headers/header_0250.jpg"
+  },
+  {
+    "id": 260,
+    "page": 251,
+    "kanji": 251,
+    "card_index": 261,
+    "card_img": "cards/card_0261.jpg",
+    "header_img": "headers/header_0251.jpg"
+  },
+  {
+    "id": 261,
+    "page": 252,
+    "kanji": 252,
+    "card_index": 262,
+    "card_img": "cards/card_0262.jpg",
+    "header_img": "headers/header_0252.jpg"
+  },
+  {
+    "id": 262,
+    "page": 253,
+    "kanji": 253,
+    "card_index": 262,
+    "card_img": "cards/card_0262.jpg",
+    "header_img": "headers/header_0253.jpg"
+  },
+  {
+    "id": 263,
+    "page": 254,
+    "kanji": 254,
+    "card_index": 263,
+    "card_img": "cards/card_0263.jpg",
+    "header_img": "headers/header_0254.jpg"
+  },
+  {
+    "id": 264,
+    "page": 255,
+    "kanji": 255,
+    "card_index": 264,
+    "card_img": "cards/card_0264.jpg",
+    "header_img": "headers/header_0255.jpg"
+  },
+  {
+    "id": 265,
+    "page": 256,
+    "kanji": 256,
+    "card_index": 265,
+    "card_img": "cards/card_0265.jpg",
+    "header_img": "headers/header_0256.jpg"
+  },
+  {
+    "id": 266,
+    "page": 257,
+    "kanji": 257,
+    "card_index": 266,
+    "card_img": "cards/card_0266.jpg",
+    "header_img": "headers/header_0257.jpg"
+  },
+  {
+    "id": 267,
+    "page": 257,
+    "kanji": 257,
+    "card_index": 267,
+    "card_img": "cards/card_0267.jpg",
+    "header_img": "headers/header_0257.jpg"
+  },
+  {
+    "id": 268,
+    "page": 258,
+    "kanji": 258,
+    "card_index": 268,
+    "card_img": "cards/card_0268.jpg",
+    "header_img": "headers/header_0258.jpg"
+  },
+  {
+    "id": 269,
+    "page": 259,
+    "kanji": 259,
+    "card_index": 269,
+    "card_img": "cards/card_0269.jpg",
+    "header_img": "headers/header_0259.jpg"
+  },
+  {
+    "id": 270,
+    "page": 260,
+    "kanji": 260,
+    "card_index": 270,
+    "card_img": "cards/card_0270.jpg",
+    "header_img": "headers/header_0260.jpg"
+  },
+  {
+    "id": 271,
+    "page": 261,
+    "kanji": 261,
+    "card_index": 271,
+    "card_img": "cards/card_0271.jpg",
+    "header_img": "headers/header_0261.jpg"
+  },
+  {
+    "id": 272,
+    "page": 262,
+    "kanji": 262,
+    "card_index": 272,
+    "card_img": "cards/card_0272.jpg",
+    "header_img": "headers/header_0262.jpg"
+  },
+  {
+    "id": 273,
+    "page": 263,
+    "kanji": 263,
+    "card_index": 273,
+    "card_img": "cards/card_0273.jpg",
+    "header_img": "headers/header_0263.jpg"
+  },
+  {
+    "id": 274,
+    "page": 264,
+    "kanji": 264,
+    "card_index": 274,
+    "card_img": "cards/card_0274.jpg",
+    "header_img": "headers/header_0264.jpg"
+  },
+  {
+    "id": 275,
+    "page": 265,
+    "kanji": 265,
+    "card_index": 275,
+    "card_img": "cards/card_0275.jpg",
+    "header_img": "headers/header_0265.jpg"
+  },
+  {
+    "id": 276,
+    "page": 266,
+    "kanji": 266,
+    "card_index": 276,
+    "card_img": "cards/card_0276.jpg",
+    "header_img": "headers/header_0266.jpg"
+  },
+  {
+    "id": 277,
+    "page": 267,
+    "kanji": 267,
+    "card_index": 277,
+    "card_img": "cards/card_0277.jpg",
+    "header_img": "headers/header_0267.jpg"
+  },
+  {
+    "id": 278,
+    "page": 268,
+    "kanji": 268,
+    "card_index": 278,
+    "card_img": "cards/card_0278.jpg",
+    "header_img": "headers/header_0268.jpg"
+  },
+  {
+    "id": 279,
+    "page": 269,
+    "kanji": 269,
+    "card_index": 279,
+    "card_img": "cards/card_0279.jpg",
+    "header_img": "headers/header_0269.jpg"
+  },
+  {
+    "id": 280,
+    "page": 270,
+    "kanji": 270,
+    "card_index": 280,
+    "card_img": "cards/card_0280.jpg",
+    "header_img": "headers/header_0270.jpg"
+  },
+  {
+    "id": 281,
+    "page": 271,
+    "kanji": 271,
+    "card_index": 281,
+    "card_img": "cards/card_0281.jpg",
+    "header_img": "headers/header_0271.jpg"
+  },
+  {
+    "id": 282,
+    "page": 272,
+    "kanji": 272,
+    "card_index": 282,
+    "card_img": "cards/card_0282.jpg",
+    "header_img": "headers/header_0272.jpg"
+  },
+  {
+    "id": 283,
+    "page": 273,
+    "kanji": 273,
+    "card_index": 283,
+    "card_img": "cards/card_0283.jpg",
+    "header_img": "headers/header_0273.jpg"
+  },
+  {
+    "id": 284,
+    "page": 274,
+    "kanji": 274,
+    "card_index": 284,
+    "card_img": "cards/card_0284.jpg",
+    "header_img": "headers/header_0274.jpg"
+  },
+  {
+    "id": 285,
+    "page": 275,
+    "kanji": 275,
+    "card_index": 285,
+    "card_img": "cards/card_0285.jpg",
+    "header_img": "headers/header_0275.jpg"
+  },
+  {
+    "id": 286,
+    "page": 276,
+    "kanji": 276,
+    "card_index": 286,
+    "card_img": "cards/card_0286.jpg",
+    "header_img": "headers/header_0276.jpg"
+  },
+  {
+    "id": 287,
+    "page": 277,
+    "kanji": 277,
+    "card_index": 287,
+    "card_img": "cards/card_0287.jpg",
+    "header_img": "headers/header_0277.jpg"
+  },
+  {
+    "id": 288,
+    "page": 278,
+    "kanji": 278,
+    "card_index": 288,
+    "card_img": "cards/card_0288.jpg",
+    "header_img": "headers/header_0278.jpg"
+  },
+  {
+    "id": 289,
+    "page": 279,
+    "kanji": 279,
+    "card_index": 289,
+    "card_img": "cards/card_0289.jpg",
+    "header_img": "headers/header_0279.jpg"
+  },
+  {
+    "id": 290,
+    "page": 280,
+    "kanji": 280,
+    "card_index": 290,
+    "card_img": "cards/card_0290.jpg",
+    "header_img": "headers/header_0280.jpg"
+  },
+  {
+    "id": 291,
+    "page": 281,
+    "kanji": 281,
+    "card_index": 291,
+    "card_img": "cards/card_0291.jpg",
+    "header_img": "headers/header_0281.jpg"
+  },
+  {
+    "id": 292,
+    "page": 282,
+    "kanji": 282,
+    "card_index": 292,
+    "card_img": "cards/card_0292.jpg",
+    "header_img": "headers/header_0282.jpg"
+  },
+  {
+    "id": 293,
+    "page": 283,
+    "kanji": 283,
+    "card_index": 293,
+    "card_img": "cards/card_0293.jpg",
+    "header_img": "headers/header_0283.jpg"
+  },
+  {
+    "id": 294,
+    "page": 284,
+    "kanji": 284,
+    "card_index": 294,
+    "card_img": "cards/card_0294.jpg",
+    "header_img": "headers/header_0284.jpg"
+  },
+  {
+    "id": 295,
+    "page": 285,
+    "kanji": 285,
+    "card_index": 295,
+    "card_img": "cards/card_0295.jpg",
+    "header_img": "headers/header_0285.jpg"
+  },
+  {
+    "id": 296,
+    "page": 286,
+    "kanji": 286,
+    "card_index": 296,
+    "card_img": "cards/card_0296.jpg",
+    "header_img": "headers/header_0286.jpg"
+  },
+  {
+    "id": 297,
+    "page": 287,
+    "kanji": 287,
+    "card_index": 297,
+    "card_img": "cards/card_0297.jpg",
+    "header_img": "headers/header_0287.jpg"
+  },
+  {
+    "id": 298,
+    "page": 288,
+    "kanji": 288,
+    "card_index": 298,
+    "card_img": "cards/card_0298.jpg",
+    "header_img": "headers/header_0288.jpg"
+  },
+  {
+    "id": 299,
+    "page": 289,
+    "kanji": 289,
+    "card_index": 299,
+    "card_img": "cards/card_0299.jpg",
+    "header_img": "headers/header_0289.jpg"
+  },
+  {
+    "id": 300,
+    "page": 290,
+    "kanji": 290,
+    "card_index": 300,
+    "card_img": "cards/card_0300.jpg",
+    "header_img": "headers/header_0290.jpg"
+  },
+  {
+    "id": 301,
+    "page": 291,
+    "kanji": 291,
+    "card_index": 301,
+    "card_img": "cards/card_0301.jpg",
+    "header_img": "headers/header_0291.jpg"
+  },
+  {
+    "id": 302,
+    "page": 292,
+    "kanji": 292,
+    "card_index": 302,
+    "card_img": "cards/card_0302.jpg",
+    "header_img": "headers/header_0292.jpg"
+  },
+  {
+    "id": 303,
+    "page": 293,
+    "kanji": 293,
+    "card_index": 303,
+    "card_img": "cards/card_0303.jpg",
+    "header_img": "headers/header_0293.jpg"
+  },
+  {
+    "id": 304,
+    "page": 294,
+    "kanji": 294,
+    "card_index": 304,
+    "card_img": "cards/card_0304.jpg",
+    "header_img": "headers/header_0294.jpg"
+  },
+  {
+    "id": 305,
+    "page": 295,
+    "kanji": 295,
+    "card_index": 305,
+    "card_img": "cards/card_0305.jpg",
+    "header_img": "headers/header_0295.jpg"
+  },
+  {
+    "id": 306,
+    "page": 296,
+    "kanji": 296,
+    "card_index": 306,
+    "card_img": "cards/card_0306.jpg",
+    "header_img": "headers/header_0296.jpg"
+  },
+  {
+    "id": 307,
+    "page": 297,
+    "kanji": 297,
+    "card_index": 307,
+    "card_img": "cards/card_0307.jpg",
+    "header_img": "headers/header_0297.jpg"
+  },
+  {
+    "id": 308,
+    "page": 298,
+    "kanji": 298,
+    "card_index": 308,
+    "card_img": "cards/card_0308.jpg",
+    "header_img": "headers/header_0298.jpg"
+  },
+  {
+    "id": 309,
+    "page": 299,
+    "kanji": 299,
+    "card_index": 309,
+    "card_img": "cards/card_0309.jpg",
+    "header_img": "headers/header_0299.jpg"
+  },
+  {
+    "id": 310,
+    "page": 300,
+    "kanji": 300,
+    "card_index": 310,
+    "card_img": "cards/card_0310.jpg",
+    "header_img": "headers/header_0300.jpg"
+  },
+  {
+    "id": 311,
+    "page": 301,
+    "kanji": 301,
+    "card_index": 311,
+    "card_img": "cards/card_0311.jpg",
+    "header_img": "headers/header_0301.jpg"
+  },
+  {
+    "id": 312,
+    "page": 302,
+    "kanji": 302,
+    "card_index": 312,
+    "card_img": "cards/card_0312.jpg",
+    "header_img": "headers/header_0302.jpg"
+  },
+  {
+    "id": 313,
+    "page": 303,
+    "kanji": 303,
+    "card_index": 313,
+    "card_img": "cards/card_0313.jpg",
+    "header_img": "headers/header_0303.jpg"
+  },
+  {
+    "id": 314,
+    "page": 304,
+    "kanji": 304,
+    "card_index": 314,
+    "card_img": "cards/card_0314.jpg",
+    "header_img": "headers/header_0304.jpg"
+  },
+  {
+    "id": 315,
+    "page": 305,
+    "kanji": 305,
+    "card_index": 315,
+    "card_img": "cards/card_0315.jpg",
+    "header_img": "headers/header_0305.jpg"
+  },
+  {
+    "id": 316,
+    "page": 306,
+    "kanji": 306,
+    "card_index": 316,
+    "card_img": "cards/card_0316.jpg",
+    "header_img": "headers/header_0306.jpg"
+  },
+  {
+    "id": 317,
+    "page": 307,
+    "kanji": 307,
+    "card_index": 317,
+    "card_img": "cards/card_0317.jpg",
+    "header_img": "headers/header_0307.jpg"
+  },
+  {
+    "id": 318,
+    "page": 308,
+    "kanji": 308,
+    "card_index": 318,
+    "card_img": "cards/card_0318.jpg",
+    "header_img": "headers/header_0308.jpg"
+  },
+  {
+    "id": 319,
+    "page": 309,
+    "kanji": 309,
+    "card_index": 319,
+    "card_img": "cards/card_0319.jpg",
+    "header_img": "headers/header_0309.jpg"
+  },
+  {
+    "id": 320,
+    "page": 310,
+    "kanji": 310,
+    "card_index": 320,
+    "card_img": "cards/card_0320.jpg",
+    "header_img": "headers/header_0310.jpg"
+  },
+  {
+    "id": 321,
+    "page": 311,
+    "kanji": 311,
+    "card_index": 321,
+    "card_img": "cards/card_0321.jpg",
+    "header_img": "headers/header_0311.jpg"
+  },
+  {
+    "id": 322,
+    "page": 312,
+    "kanji": 312,
+    "card_index": 322,
+    "card_img": "cards/card_0322.jpg",
+    "header_img": "headers/header_0312.jpg"
+  },
+  {
+    "id": 323,
+    "page": 312,
+    "kanji": 312,
+    "card_index": 323,
+    "card_img": "cards/card_0323.jpg",
+    "header_img": "headers/header_0312.jpg"
+  },
+  {
+    "id": 324,
+    "page": 313,
+    "kanji": 313,
+    "card_index": 324,
+    "card_img": "cards/card_0324.jpg",
+    "header_img": "headers/header_0313.jpg"
+  },
+  {
+    "id": 325,
+    "page": 314,
+    "kanji": 314,
+    "card_index": 325,
+    "card_img": "cards/card_0325.jpg",
+    "header_img": "headers/header_0314.jpg"
+  },
+  {
+    "id": 326,
+    "page": 315,
+    "kanji": 315,
+    "card_index": 326,
+    "card_img": "cards/card_0326.jpg",
+    "header_img": "headers/header_0315.jpg"
+  },
+  {
+    "id": 327,
+    "page": 316,
+    "kanji": 316,
+    "card_index": 327,
+    "card_img": "cards/card_0327.jpg",
+    "header_img": "headers/header_0316.jpg"
+  },
+  {
+    "id": 328,
+    "page": 317,
+    "kanji": 317,
+    "card_index": 328,
+    "card_img": "cards/card_0328.jpg",
+    "header_img": "headers/header_0317.jpg"
+  },
+  {
+    "id": 329,
+    "page": 318,
+    "kanji": 318,
+    "card_index": 329,
+    "card_img": "cards/card_0329.jpg",
+    "header_img": "headers/header_0318.jpg"
+  },
+  {
+    "id": 330,
+    "page": 319,
+    "kanji": 319,
+    "card_index": 330,
+    "card_img": "cards/card_0330.jpg",
+    "header_img": "headers/header_0319.jpg"
+  },
+  {
+    "id": 331,
+    "page": 320,
+    "kanji": 320,
+    "card_index": 331,
+    "card_img": "cards/card_0331.jpg",
+    "header_img": "headers/header_0320.jpg"
+  },
+  {
+    "id": 332,
+    "page": 321,
+    "kanji": 321,
+    "card_index": 332,
+    "card_img": "cards/card_0332.jpg",
+    "header_img": "headers/header_0321.jpg"
+  },
+  {
+    "id": 333,
+    "page": 322,
+    "kanji": 322,
+    "card_index": 333,
+    "card_img": "cards/card_0333.jpg",
+    "header_img": "headers/header_0322.jpg"
+  },
+  {
+    "id": 334,
+    "page": 323,
+    "kanji": 323,
+    "card_index": 334,
+    "card_img": "cards/card_0334.jpg",
+    "header_img": "headers/header_0323.jpg"
+  },
+  {
+    "id": 335,
+    "page": 324,
+    "kanji": 324,
+    "card_index": 335,
+    "card_img": "cards/card_0335.jpg",
+    "header_img": "headers/header_0324.jpg"
+  },
+  {
+    "id": 336,
+    "page": 325,
+    "kanji": 325,
+    "card_index": 336,
+    "card_img": "cards/card_0336.jpg",
+    "header_img": "headers/header_0325.jpg"
+  },
+  {
+    "id": 337,
+    "page": 326,
+    "kanji": 326,
+    "card_index": 337,
+    "card_img": "cards/card_0337.jpg",
+    "header_img": "headers/header_0326.jpg"
+  },
+  {
+    "id": 338,
+    "page": 327,
+    "kanji": 327,
+    "card_index": 338,
+    "card_img": "cards/card_0338.jpg",
+    "header_img": "headers/header_0327.jpg"
+  },
+  {
+    "id": 339,
+    "page": 328,
+    "kanji": 328,
+    "card_index": 339,
+    "card_img": "cards/card_0339.jpg",
+    "header_img": "headers/header_0328.jpg"
+  },
+  {
+    "id": 340,
+    "page": 329,
+    "kanji": 329,
+    "card_index": 340,
+    "card_img": "cards/card_0340.jpg",
+    "header_img": "headers/header_0329.jpg"
+  },
+  {
+    "id": 341,
+    "page": 330,
+    "kanji": 330,
+    "card_index": 341,
+    "card_img": "cards/card_0341.jpg",
+    "header_img": "headers/header_0330.jpg"
+  },
+  {
+    "id": 342,
+    "page": 331,
+    "kanji": 331,
+    "card_index": 342,
+    "card_img": "cards/card_0342.jpg",
+    "header_img": "headers/header_0331.jpg"
+  },
+  {
+    "id": 343,
+    "page": 332,
+    "kanji": 332,
+    "card_index": 342,
+    "card_img": "cards/card_0342.jpg",
+    "header_img": "headers/header_0332.jpg"
+  },
+  {
+    "id": 344,
+    "page": 333,
+    "kanji": 333,
+    "card_index": 343,
+    "card_img": "cards/card_0343.jpg",
+    "header_img": "headers/header_0333.jpg"
+  },
+  {
+    "id": 345,
+    "page": 334,
+    "kanji": 334,
+    "card_index": 344,
+    "card_img": "cards/card_0344.jpg",
+    "header_img": "headers/header_0334.jpg"
+  },
+  {
+    "id": 346,
+    "page": 335,
+    "kanji": 335,
+    "card_index": 344,
+    "card_img": "cards/card_0344.jpg",
+    "header_img": "headers/header_0335.jpg"
+  },
+  {
+    "id": 347,
+    "page": 336,
+    "kanji": 336,
+    "card_index": 344,
+    "card_img": "cards/card_0344.jpg",
+    "header_img": "headers/header_0336.jpg"
+  },
+  {
+    "id": 348,
+    "page": 337,
+    "kanji": 337,
+    "card_index": 345,
+    "card_img": "cards/card_0345.jpg",
+    "header_img": "headers/header_0337.jpg"
+  },
+  {
+    "id": 349,
+    "page": 338,
+    "kanji": 338,
+    "card_index": 346,
+    "card_img": "cards/card_0346.jpg",
+    "header_img": "headers/header_0338.jpg"
+  },
+  {
+    "id": 350,
+    "page": 339,
+    "kanji": 339,
+    "card_index": 347,
+    "card_img": "cards/card_0347.jpg",
+    "header_img": "headers/header_0339.jpg"
+  },
+  {
+    "id": 351,
+    "page": 340,
+    "kanji": 340,
+    "card_index": 348,
+    "card_img": "cards/card_0348.jpg",
+    "header_img": "headers/header_0340.jpg"
+  },
+  {
+    "id": 352,
+    "page": 341,
+    "kanji": 341,
+    "card_index": 349,
+    "card_img": "cards/card_0349.jpg",
+    "header_img": "headers/header_0341.jpg"
+  },
+  {
+    "id": 353,
+    "page": 342,
+    "kanji": 342,
+    "card_index": 350,
+    "card_img": "cards/card_0350.jpg",
+    "header_img": "headers/header_0342.jpg"
+  },
+  {
+    "id": 354,
+    "page": 343,
+    "kanji": 343,
+    "card_index": 350,
+    "card_img": "cards/card_0350.jpg",
+    "header_img": "headers/header_0343.jpg"
+  },
+  {
+    "id": 355,
+    "page": 344,
+    "kanji": 344,
+    "card_index": 351,
+    "card_img": "cards/card_0351.jpg",
+    "header_img": "headers/header_0344.jpg"
+  },
+  {
+    "id": 356,
+    "page": 345,
+    "kanji": 345,
+    "card_index": 352,
+    "card_img": "cards/card_0352.jpg",
+    "header_img": "headers/header_0345.jpg"
+  },
+  {
+    "id": 357,
+    "page": 346,
+    "kanji": 346,
+    "card_index": 353,
+    "card_img": "cards/card_0353.jpg",
+    "header_img": "headers/header_0346.jpg"
+  },
+  {
+    "id": 358,
+    "page": 347,
+    "kanji": 347,
+    "card_index": 354,
+    "card_img": "cards/card_0354.jpg",
+    "header_img": "headers/header_0347.jpg"
+  },
+  {
+    "id": 359,
+    "page": 348,
+    "kanji": 348,
+    "card_index": 354,
+    "card_img": "cards/card_0354.jpg",
+    "header_img": "headers/header_0348.jpg"
+  },
+  {
+    "id": 360,
+    "page": 349,
+    "kanji": 349,
+    "card_index": 355,
+    "card_img": "cards/card_0355.jpg",
+    "header_img": "headers/header_0349.jpg"
+  },
+  {
+    "id": 361,
+    "page": 350,
+    "kanji": 350,
+    "card_index": 381,
+    "card_img": "cards/card_0381.jpg",
+    "header_img": "headers/header_0350.jpg"
+  },
+  {
+    "id": 362,
+    "page": 351,
+    "kanji": 351,
+    "card_index": 382,
+    "card_img": "cards/card_0382.jpg",
+    "header_img": "headers/header_0351.jpg"
+  },
+  {
+    "id": 363,
+    "page": 352,
+    "kanji": 352,
+    "card_index": 356,
+    "card_img": "cards/card_0356.jpg",
+    "header_img": "headers/header_0352.jpg"
+  },
+  {
+    "id": 364,
+    "page": 352,
+    "kanji": 352,
+    "card_index": 357,
+    "card_img": "cards/card_0357.jpg",
+    "header_img": "headers/header_0352.jpg"
+  },
+  {
+    "id": 365,
+    "page": 353,
+    "kanji": 353,
+    "card_index": 358,
+    "card_img": "cards/card_0358.jpg",
+    "header_img": "headers/header_0353.jpg"
+  },
+  {
+    "id": 366,
+    "page": 354,
+    "kanji": 354,
+    "card_index": 359,
+    "card_img": "cards/card_0359.jpg",
+    "header_img": "headers/header_0354.jpg"
+  },
+  {
+    "id": 367,
+    "page": 355,
+    "kanji": 355,
+    "card_index": 360,
+    "card_img": "cards/card_0360.jpg",
+    "header_img": "headers/header_0355.jpg"
+  },
+  {
+    "id": 368,
+    "page": 356,
+    "kanji": 356,
+    "card_index": 361,
+    "card_img": "cards/card_0361.jpg",
+    "header_img": "headers/header_0356.jpg"
+  },
+  {
+    "id": 369,
+    "page": 357,
+    "kanji": 357,
+    "card_index": 362,
+    "card_img": "cards/card_0362.jpg",
+    "header_img": "headers/header_0357.jpg"
+  },
+  {
+    "id": 370,
+    "page": 358,
+    "kanji": 358,
+    "card_index": 363,
+    "card_img": "cards/card_0363.jpg",
+    "header_img": "headers/header_0358.jpg"
+  },
+  {
+    "id": 371,
+    "page": 359,
+    "kanji": 359,
+    "card_index": 364,
+    "card_img": "cards/card_0364.jpg",
+    "header_img": "headers/header_0359.jpg"
+  },
+  {
+    "id": 372,
+    "page": 360,
+    "kanji": 360,
+    "card_index": 365,
+    "card_img": "cards/card_0365.jpg",
+    "header_img": "headers/header_0360.jpg"
+  },
+  {
+    "id": 373,
+    "page": 361,
+    "kanji": 361,
+    "card_index": 366,
+    "card_img": "cards/card_0366.jpg",
+    "header_img": "headers/header_0361.jpg"
+  },
+  {
+    "id": 374,
+    "page": 362,
+    "kanji": 362,
+    "card_index": 367,
+    "card_img": "cards/card_0367.jpg",
+    "header_img": "headers/header_0362.jpg"
+  },
+  {
+    "id": 375,
+    "page": 362,
+    "kanji": 362,
+    "card_index": 368,
+    "card_img": "cards/card_0368.jpg",
+    "header_img": "headers/header_0362.jpg"
+  },
+  {
+    "id": 376,
+    "page": 363,
+    "kanji": 363,
+    "card_index": 369,
+    "card_img": "cards/card_0369.jpg",
+    "header_img": "headers/header_0363.jpg"
+  },
+  {
+    "id": 377,
+    "page": 364,
+    "kanji": 364,
+    "card_index": 370,
+    "card_img": "cards/card_0370.jpg",
+    "header_img": "headers/header_0364.jpg"
+  },
+  {
+    "id": 378,
+    "page": 365,
+    "kanji": 365,
+    "card_index": 371,
+    "card_img": "cards/card_0371.jpg",
+    "header_img": "headers/header_0365.jpg"
+  },
+  {
+    "id": 379,
+    "page": 366,
+    "kanji": 366,
+    "card_index": 372,
+    "card_img": "cards/card_0372.jpg",
+    "header_img": "headers/header_0366.jpg"
+  },
+  {
+    "id": 380,
+    "page": 367,
+    "kanji": 367,
+    "card_index": 373,
+    "card_img": "cards/card_0373.jpg",
+    "header_img": "headers/header_0367.jpg"
+  },
+  {
+    "id": 381,
+    "page": 368,
+    "kanji": 368,
+    "card_index": 374,
+    "card_img": "cards/card_0374.jpg",
+    "header_img": "headers/header_0368.jpg"
+  },
+  {
+    "id": 382,
+    "page": 369,
+    "kanji": 369,
+    "card_index": 375,
+    "card_img": "cards/card_0375.jpg",
+    "header_img": "headers/header_0369.jpg"
+  },
+  {
+    "id": 383,
+    "page": 370,
+    "kanji": 370,
+    "card_index": 376,
+    "card_img": "cards/card_0376.jpg",
+    "header_img": "headers/header_0370.jpg"
+  },
+  {
+    "id": 384,
+    "page": 371,
+    "kanji": 371,
+    "card_index": 377,
+    "card_img": "cards/card_0377.jpg",
+    "header_img": "headers/header_0371.jpg"
+  },
+  {
+    "id": 385,
+    "page": 372,
+    "kanji": 372,
+    "card_index": 378,
+    "card_img": "cards/card_0378.jpg",
+    "header_img": "headers/header_0372.jpg"
+  },
+  {
+    "id": 386,
+    "page": 373,
+    "kanji": 373,
+    "card_index": 379,
+    "card_img": "cards/card_0379.jpg",
+    "header_img": "headers/header_0373.jpg"
+  },
+  {
+    "id": 387,
+    "page": 374,
+    "kanji": 374,
+    "card_index": 380,
+    "card_img": "cards/card_0380.jpg",
+    "header_img": "headers/header_0374.jpg"
+  }
+]
