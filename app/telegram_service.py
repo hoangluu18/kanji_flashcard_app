@@ -137,6 +137,7 @@ class TelegramBotService:
         self.application.add_handler(CommandHandler("review", self.cmd_review))
         self.application.add_handler(CommandHandler("stats", self.cmd_stats))
         self.application.add_handler(CommandHandler("settings", self.cmd_settings))
+        self.application.add_handler(CommandHandler("setting", self.cmd_settings))
         self.application.add_handler(CommandHandler("setnew", self.cmd_setnew))
         self.application.add_handler(CommandHandler("setlimit", self.cmd_setlimit))
         self.application.add_handler(CommandHandler("vacation", self.cmd_vacation))
@@ -452,12 +453,13 @@ class TelegramBotService:
             f"- Giới hạn ôn ngày thường: {self.settings.weekday_review_limit}\n"
             f"- Giới hạn ôn cuối tuần: {self.settings.weekend_review_limit}\n"
             f"- Giới hạn phiên nhanh: {self.settings.quick_session_limit}\n"
+            f"- Ngưỡng leech: {self.settings.leech_threshold}\n"
             f"- Nhắc sáng: {settings.notify_morning}\n"
             f"- Nhắc trưa: {settings.notify_noon}\n"
             f"- Nhắc tối: {settings.notify_evening}\n"
             f"- Vacation mode: {'ON' if settings.vacation_mode else 'OFF'}\n"
             "\n"
-            "Lệnh nhanh: /quick, /setnew, /setlimit, /vacation, /backlog"
+            "Lệnh nhanh: /settings (hoặc /setting), /quick, /setnew, /setlimit, /vacation, /backlog"
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
 

@@ -207,7 +207,7 @@ def build_queue(session: Session, user_id: int, session_type: str) -> QueueInfo:
         adjusted_new_per_day = min(adjusted_new_per_day, 5)
 
     new_queue: list[int] = []
-    if session_type in ("mixed", "new", "quick"):
+    if session_type in ("mixed", "new", "quick", "morning"):
         new_rows = session.scalars(
             select(ReviewState)
             .where(ReviewState.user_id == user_id, ReviewState.status == "new")
@@ -221,9 +221,9 @@ def build_queue(session: Session, user_id: int, session_type: str) -> QueueInfo:
         due_count = len(due_queue)
         new_count = 0
     elif session_type == "morning":
-        queue = due_today_queue + new_queue
-        due_count = len(due_today_queue)
+        queue = new_queue + due_today_queue
         new_count = len(new_queue)
+        due_count = len(due_today_queue)
     elif session_type == "evening":
         queue = overdue_queue
         due_count = len(overdue_queue)
@@ -233,9 +233,10 @@ def build_queue(session: Session, user_id: int, session_type: str) -> QueueInfo:
         due_count = 0
         new_count = len(new_queue)
     elif session_type == "quick":
-        queue = (due_queue + new_queue)[:quick_limit]
-        due_count = min(len(due_queue), len(queue))
-        new_count = max(0, len(queue) - due_count)
+        queue = (new_queue + due_queue)[:quick_limit]
+        new_set = set(new_queue)
+        new_count = len([k for k in queue if k in new_set])
+        due_count = len(queue) - new_count
     else:
         queue = due_queue + new_queue
         due_count = len(due_queue)
