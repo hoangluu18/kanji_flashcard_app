@@ -17,14 +17,18 @@ from app.repository import (
     ensure_review_states,
     ensure_user,
     ensure_user_settings,
+    get_backlog_overview,
     get_active_session,
     get_kanji_with_cards,
+    get_recent_performance,
     get_review_state,
+    get_user_status_details,
     get_user_stats,
     is_callback_processed,
     mark_callback_processed,
     replace_active_session_queue,
     save_review_result,
+    update_user_settings_values,
     update_active_session,
     upsert_active_session,
 )
@@ -96,6 +100,14 @@ def _start_today_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup([[InlineKeyboardButton("Bắt đầu hôm nay", callback_data="start_today")]])
 
 
+def _start_morning_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup([[InlineKeyboardButton("Bắt đầu buổi sáng", callback_data="start_morning")]])
+
+
+def _start_evening_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup([[InlineKeyboardButton("Ôn buổi tối", callback_data="start_evening")]])
+
+
 class TelegramBotService:
     def __init__(self, settings: Settings, session_factory):
         self.settings = settings
@@ -121,9 +133,14 @@ class TelegramBotService:
         assert self.application is not None
         self.application.add_handler(CommandHandler("start", self.cmd_start))
         self.application.add_handler(CommandHandler("today", self.cmd_today))
+        self.application.add_handler(CommandHandler("quick", self.cmd_quick))
         self.application.add_handler(CommandHandler("review", self.cmd_review))
         self.application.add_handler(CommandHandler("stats", self.cmd_stats))
         self.application.add_handler(CommandHandler("settings", self.cmd_settings))
+        self.application.add_handler(CommandHandler("setnew", self.cmd_setnew))
+        self.application.add_handler(CommandHandler("setlimit", self.cmd_setlimit))
+        self.application.add_handler(CommandHandler("vacation", self.cmd_vacation))
+        self.application.add_handler(CommandHandler("backlog", self.cmd_backlog))
         self.application.add_handler(CallbackQueryHandler(self.callback_router))
 
     async def initialize(self) -> None:
@@ -217,13 +234,21 @@ class TelegramBotService:
         text = (
             "Bot Kanji SRS đã sẵn sàng.\n"
             "- /today: bắt đầu phiên học hôm nay\n"
+            "- /quick: phiên học nhanh ~10 phút\n"
             "- /review: chỉ học thẻ đến hạn\n"
-            "- /stats: xem tiến độ học"
+            "- /stats: xem tiến độ học\n"
+            "- /setnew <số>: chỉnh thẻ mới/ngày\n"
+            "- /setlimit <số>: chỉnh giới hạn ôn/ngày\n"
+            "- /vacation on|off: bật/tắt nghỉ học\n"
+            "- /backlog: xem tồn đọng cần xử lý"
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
 
     async def cmd_today(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-        await self._start_session_from_command(update, session_type="mixed")
+        await self._start_session_from_command(update, session_type="morning")
+
+    async def cmd_quick(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        await self._start_session_from_command(update, session_type="quick")
 
     async def cmd_review(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await self._start_session_from_command(update, session_type="review")
@@ -247,6 +272,9 @@ class TelegramBotService:
             )
             ensure_review_states(session, user.id)
             stats = get_user_stats(session, user.id)
+            details = get_user_status_details(session, user.id, per_status_limit=8)
+            perf7 = get_recent_performance(session, user.id, days=7)
+            backlog = get_backlog_overview(session, user.id)
 
         lines = [
             "Thống kê của bạn:",
@@ -257,8 +285,147 @@ class TelegramBotService:
             f"- Nhớ ổn định: {stats['mature']}",
             f"- Khó nhớ: {stats['leech']}",
             f"- Đến hạn hôm nay: {stats['due']}",
+            f"- Quá hạn tồn: {backlog['overdue']}",
+            "",
+            "Hiệu suất 7 ngày gần nhất:",
+            f"- Lượt trả lời: {perf7['total']}",
+            f"- Again: {perf7['again']}",
+            f"- Tỷ lệ nhớ (không Again): {perf7['accuracy']}%",
+            "",
+            "Chi tiết theo trạng thái (tối đa 8 thẻ/trạng thái):",
+            f"- Mới: {', '.join(details['new']) if details['new'] else 'không có'}",
+            f"- Đang học: {', '.join(details['learning']) if details['learning'] else 'không có'}",
+            f"- Nhớ ngắn hạn: {', '.join(details['young']) if details['young'] else 'không có'}",
+            f"- Nhớ ổn định: {', '.join(details['mature']) if details['mature'] else 'không có'}",
+            f"- Quên gần đây: {', '.join(details['lapsed']) if details['lapsed'] else 'không có'}",
+            f"- Khó nhớ: {', '.join(details['leech']) if details['leech'] else 'không có'}",
         ]
         await context.bot.send_message(chat_id=chat.id, text="\n".join(lines))
+
+    async def cmd_setnew(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        user = update.effective_user
+        chat = update.effective_chat
+        if user is None or chat is None:
+            return
+
+        if not context.args:
+            await context.bot.send_message(chat_id=chat.id, text="Dùng: /setnew <0-30>")
+            return
+
+        try:
+            value = int(context.args[0])
+        except ValueError:
+            await context.bot.send_message(chat_id=chat.id, text="Giá trị không hợp lệ. Ví dụ: /setnew 8")
+            return
+
+        value = max(0, min(30, value))
+        with session_scope(self.session_factory) as session:
+            ensure_user(session, user.id, user.username, self.settings.app_timezone)
+            ensure_user_settings(
+                session,
+                user.id,
+                self.settings.default_new_per_day,
+                self.settings.default_review_limit,
+                self.settings.schedule_morning,
+                self.settings.schedule_noon,
+                self.settings.schedule_evening,
+            )
+            settings = update_user_settings_values(session, user.id, new_per_day=value)
+
+        await context.bot.send_message(chat_id=chat.id, text=f"Đã cập nhật thẻ mới/ngày = {settings.new_per_day}.")
+
+    async def cmd_setlimit(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        user = update.effective_user
+        chat = update.effective_chat
+        if user is None or chat is None:
+            return
+
+        if not context.args:
+            await context.bot.send_message(chat_id=chat.id, text="Dùng: /setlimit <10-120>")
+            return
+
+        try:
+            value = int(context.args[0])
+        except ValueError:
+            await context.bot.send_message(chat_id=chat.id, text="Giá trị không hợp lệ. Ví dụ: /setlimit 30")
+            return
+
+        value = max(10, min(120, value))
+        with session_scope(self.session_factory) as session:
+            ensure_user(session, user.id, user.username, self.settings.app_timezone)
+            ensure_user_settings(
+                session,
+                user.id,
+                self.settings.default_new_per_day,
+                self.settings.default_review_limit,
+                self.settings.schedule_morning,
+                self.settings.schedule_noon,
+                self.settings.schedule_evening,
+            )
+            settings = update_user_settings_values(session, user.id, review_limit=value)
+
+        await context.bot.send_message(chat_id=chat.id, text=f"Đã cập nhật giới hạn ôn/ngày = {settings.review_limit}.")
+
+    async def cmd_vacation(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        user = update.effective_user
+        chat = update.effective_chat
+        if user is None or chat is None:
+            return
+
+        if not context.args:
+            await context.bot.send_message(chat_id=chat.id, text="Dùng: /vacation on hoặc /vacation off")
+            return
+
+        value = context.args[0].strip().lower()
+        if value not in ("on", "off"):
+            await context.bot.send_message(chat_id=chat.id, text="Chỉ nhận on hoặc off. Ví dụ: /vacation on")
+            return
+
+        with session_scope(self.session_factory) as session:
+            ensure_user(session, user.id, user.username, self.settings.app_timezone)
+            ensure_user_settings(
+                session,
+                user.id,
+                self.settings.default_new_per_day,
+                self.settings.default_review_limit,
+                self.settings.schedule_morning,
+                self.settings.schedule_noon,
+                self.settings.schedule_evening,
+            )
+            settings = update_user_settings_values(session, user.id, vacation_mode=(value == "on"))
+
+        state = "BẬT" if settings.vacation_mode else "TẮT"
+        await context.bot.send_message(chat_id=chat.id, text=f"Chế độ nghỉ học đã {state}.")
+
+    async def cmd_backlog(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        user = update.effective_user
+        chat = update.effective_chat
+        if user is None or chat is None:
+            return
+
+        with session_scope(self.session_factory) as session:
+            ensure_user(session, user.id, user.username, self.settings.app_timezone)
+            ensure_user_settings(
+                session,
+                user.id,
+                self.settings.default_new_per_day,
+                self.settings.default_review_limit,
+                self.settings.schedule_morning,
+                self.settings.schedule_noon,
+                self.settings.schedule_evening,
+            )
+            ensure_review_states(session, user.id)
+            backlog = get_backlog_overview(session, user.id)
+
+        text = (
+            "Tồn đọng hiện tại:\n"
+            f"- Đến hạn hôm nay: {backlog['due_today']}\n"
+            f"- Quá hạn: {backlog['overdue']}\n"
+            f"- Tổng cần xử lý: {backlog['total_due']}\n"
+            "\n"
+            "Gợi ý: Trong tuần ôn nhẹ, cuối tuần dọn backlog theo tỷ lệ 40/60."
+        )
+        await context.bot.send_message(chat_id=chat.id, text=text)
 
     async def cmd_settings(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         user = update.effective_user
@@ -282,11 +449,15 @@ class TelegramBotService:
             "Cài đặt hiện tại:\n"
             f"- Thẻ mới/ngày: {settings.new_per_day}\n"
             f"- Giới hạn ôn/ngày: {settings.review_limit}\n"
+            f"- Giới hạn ôn ngày thường: {self.settings.weekday_review_limit}\n"
+            f"- Giới hạn ôn cuối tuần: {self.settings.weekend_review_limit}\n"
+            f"- Giới hạn phiên nhanh: {self.settings.quick_session_limit}\n"
             f"- Nhắc sáng: {settings.notify_morning}\n"
             f"- Nhắc trưa: {settings.notify_noon}\n"
             f"- Nhắc tối: {settings.notify_evening}\n"
+            f"- Vacation mode: {'ON' if settings.vacation_mode else 'OFF'}\n"
             "\n"
-            "Lệnh sửa cài đặt sẽ bổ sung sau."
+            "Lệnh nhanh: /quick, /setnew, /setlimit, /vacation, /backlog"
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
 
@@ -324,6 +495,10 @@ class TelegramBotService:
         try:
             if data == "start_today":
                 await self._start_session_for_user(user.id, session_type="mixed")
+            elif data == "start_morning":
+                await self._start_session_for_user(user.id, session_type="morning")
+            elif data == "start_evening":
+                await self._start_session_for_user(user.id, session_type="evening")
             elif data == "flip":
                 await self._handle_flip(user.id)
             elif data == "next_card":
@@ -707,14 +882,14 @@ class TelegramBotService:
             return
         text = (
             "Nhắc học buổi sáng\n"
-            f"- Đến hạn: {due_count}\n"
+            f"- Ôn từ hôm qua: {due_count}\n"
             f"- Mới: {new_count}\n"
             "Bấm để bắt đầu."
         )
-        await self.send_text(user_id, text, reply_markup=_start_today_keyboard())
+        await self.send_text(user_id, text, reply_markup=_start_morning_keyboard())
 
     async def send_nudge(self, user_id: int, label: str, due_count: int) -> None:
         if due_count <= 0:
             return
         text = f"{label}: hôm nay bạn vẫn còn {due_count} thẻ đến hạn."
-        await self.send_text(user_id, text, reply_markup=_start_today_keyboard())
+        await self.send_text(user_id, text, reply_markup=_start_evening_keyboard())

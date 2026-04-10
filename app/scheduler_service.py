@@ -9,8 +9,7 @@ from app.repository import (
     build_queue,
     ensure_review_states,
     ensure_user_settings,
-    get_all_users,
-    get_user_stats,
+    get_notifiable_user_ids,
     prune_old_callbacks,
 )
 from app.telegram_service import TelegramBotService
@@ -36,11 +35,9 @@ class SchedulerService:
         scheduler = AsyncIOScheduler(timezone=self.settings.app_timezone)
 
         m_hour, m_min = parse_hour_minute(self.settings.schedule_morning)
-        n_hour, n_min = parse_hour_minute(self.settings.schedule_noon)
         e_hour, e_min = parse_hour_minute(self.settings.schedule_evening)
 
         scheduler.add_job(self.run_morning_job, "cron", hour=m_hour, minute=m_min, id="morning_job")
-        scheduler.add_job(self.run_noon_job, "cron", hour=n_hour, minute=n_min, id="noon_job")
         scheduler.add_job(self.run_evening_job, "cron", hour=e_hour, minute=e_min, id="evening_job")
         scheduler.add_job(self.run_maintenance_job, "cron", hour=3, minute=10, id="maintenance_job")
 
@@ -60,28 +57,21 @@ class SchedulerService:
         users = self._load_user_ids()
         for user_id in users:
             try:
-                due_count, new_count = self._load_limited_due_new(user_id)
+                due_count, new_count = self._load_morning_due_new(user_id)
                 await self.bot_service.send_morning_prompt(user_id, due_count=due_count, new_count=new_count)
             except Exception as exc:
                 logger.exception("morning job failed for user %s: %s", user_id, exc)
 
     async def run_noon_job(self) -> None:
-        logger.info("Running noon reminder job")
-        users = self._load_user_ids()
-        for user_id in users:
-            try:
-                due_count = self._load_due_count(user_id)
-                await self.bot_service.send_nudge(user_id, label="Nhắc buổi trưa", due_count=due_count)
-            except Exception as exc:
-                logger.exception("noon job failed for user %s: %s", user_id, exc)
+        logger.info("Noon reminder job is disabled")
 
     async def run_evening_job(self) -> None:
         logger.info("Running evening reminder job")
         users = self._load_user_ids()
         for user_id in users:
             try:
-                due_count = self._load_due_count(user_id)
-                await self.bot_service.send_nudge(user_id, label="Nhắc buổi tối", due_count=due_count)
+                due_count = self._load_overdue_count(user_id)
+                await self.bot_service.send_nudge(user_id, label="Ôn buổi tối", due_count=due_count)
             except Exception as exc:
                 logger.exception("evening job failed for user %s: %s", user_id, exc)
 
@@ -93,10 +83,9 @@ class SchedulerService:
 
     def _load_user_ids(self) -> list[int]:
         with session_scope(self.session_factory) as session:
-            users = get_all_users(session)
-            return [u.telegram_id for u in users]
+            return get_notifiable_user_ids(session)
 
-    def _load_limited_due_new(self, user_id: int) -> tuple[int, int]:
+    def _load_morning_due_new(self, user_id: int) -> tuple[int, int]:
         with session_scope(self.session_factory) as session:
             ensure_user_settings(
                 session,
@@ -108,11 +97,11 @@ class SchedulerService:
                 self.settings.schedule_evening,
             )
             ensure_review_states(session, user_id)
-            info = build_queue(session, user_id, session_type="mixed")
+            info = build_queue(session, user_id, session_type="morning")
             return info.due_count, info.new_count
 
-    def _load_due_count(self, user_id: int) -> int:
+    def _load_overdue_count(self, user_id: int) -> int:
         with session_scope(self.session_factory) as session:
             ensure_review_states(session, user_id)
-            stats = get_user_stats(session, user_id)
-            return stats["due"]
+            info = build_queue(session, user_id, session_type="evening")
+            return len(info.queue)

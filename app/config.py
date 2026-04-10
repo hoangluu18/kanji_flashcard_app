@@ -34,6 +34,9 @@ class Settings(BaseSettings):
 
     default_new_per_day: int = Field(default=10, alias="DEFAULT_NEW_PER_DAY")
     default_review_limit: int = Field(default=50, alias="DEFAULT_REVIEW_LIMIT")
+    weekday_review_limit: int = Field(default=30, alias="WEEKDAY_REVIEW_LIMIT")
+    weekend_review_limit: int = Field(default=80, alias="WEEKEND_REVIEW_LIMIT")
+    quick_session_limit: int = Field(default=12, alias="QUICK_SESSION_LIMIT")
     leech_threshold: int = Field(default=5, alias="LEECH_THRESHOLD")
 
     model_config = SettingsConfigDict(
