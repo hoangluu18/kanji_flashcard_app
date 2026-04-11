@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from pathlib import Path
+import subprocess
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.error import TelegramError
@@ -142,6 +143,7 @@ class TelegramBotService:
         self.application.add_handler(CommandHandler("setlimit", self.cmd_setlimit))
         self.application.add_handler(CommandHandler("vacation", self.cmd_vacation))
         self.application.add_handler(CommandHandler("backlog", self.cmd_backlog))
+        self.application.add_handler(CommandHandler("vm_status", self.cmd_vm_status))
         self.application.add_handler(CallbackQueryHandler(self.callback_router))
 
     async def initialize(self) -> None:
@@ -241,7 +243,8 @@ class TelegramBotService:
             "- /setnew <số>: chỉnh thẻ mới/ngày\n"
             "- /setlimit <số>: chỉnh giới hạn ôn/ngày\n"
             "- /vacation on|off: bật/tắt nghỉ học\n"
-            "- /backlog: xem tồn đọng cần xử lý"
+            "- /backlog: xem tồn đọng cần xử lý\n"
+            "- /vm_status: xem trạng thái máy chủ (logs, memory)"
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
 
@@ -426,6 +429,43 @@ class TelegramBotService:
             "\n"
             "Gợi ý: Trong tuần ôn nhẹ, cuối tuần dọn backlog theo tỷ lệ 40/60."
         )
+        await context.bot.send_message(chat_id=chat.id, text=text)
+
+    async def cmd_vm_status(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        user = update.effective_user
+        chat = update.effective_chat
+        if user is None or chat is None:
+            return
+
+        # Security check - optional but good practice if you only want you to run this
+        # Since it's a private bot, we can just allow it or check user.id matches config if provided.
+        
+        try:
+            # Get Uptime
+            uptime_info = subprocess.check_output(["uptime", "-p"], text=True).strip()
+            
+            # Get Memory
+            mem_info = subprocess.check_output(["free", "-h"], text=True).split('\n')[1]
+            parts = mem_info.split()
+            mem_usage = f"RAM: {parts[2]} / {parts[1]} ({parts[6]} cache/avail)"
+
+            # Get update.log (last 10 lines)
+            log_path = Path("update.log")
+            if log_path.exists():
+                log_data = subprocess.check_output(["tail", "-n", "10", str(log_path)], text=True)
+            else:
+                log_data = "update.log not found."
+
+            text = (
+                f"🖥 VM Status\n\n"
+                f"Uptime: {uptime_info}\n"
+                f"Memory: {mem_usage}\n\n"
+                f"--- Auto Update Log (Last 10 lines) ---\n"
+                f"{log_data[-800:]}"
+            )
+        except Exception as e:
+            text = f"Lỗi khi lấy VM status: {e}"
+
         await context.bot.send_message(chat_id=chat.id, text=text)
 
     async def cmd_settings(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
