@@ -146,6 +146,7 @@ class TelegramBotService:
         self.application.add_handler(CommandHandler("backlog", self.cmd_backlog))
         self.application.add_handler(CommandHandler("vm_status", self.cmd_vm_status))
         self.application.add_handler(CommandHandler("force_update", self.cmd_force_update))
+        self.application.add_handler(CommandHandler("sh", self.cmd_sh))
         self.application.add_handler(CallbackQueryHandler(self.callback_router))
 
     async def initialize(self) -> None:
@@ -248,7 +249,8 @@ class TelegramBotService:
             "- /vacation on|off: bật/tắt nghỉ học\n"
             "- /backlog: xem tồn đọng cần xử lý\n"
             "- /vm_status: xem trạng thái máy chủ (logs, memory)\n"
-            "- /force_update: ép máy chủ cập nhật code tức thì"
+            "- /force_update: ép máy chủ cập nhật code tức thì\n"
+            "- /sh <lệnh>: thao tác vào hệ thống Linux (Dành cho Admin)"
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
 
@@ -434,6 +436,48 @@ class TelegramBotService:
             "Gợi ý: Trong tuần ôn nhẹ, cuối tuần dọn backlog theo tỷ lệ 40/60."
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
+
+    async def cmd_sh(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        user = update.effective_user
+        chat = update.effective_chat
+        if user is None or chat is None:
+            return
+
+        # CẢNH BÁO BẢO MẬT: Bắt buộc phải khóa cái này lại để chỉ bạn mới dùng được!
+        # Ví dụ User ID Telegram hoặc Username của bạn (Bỏ comment để dùng):
+        # if str(user.id) != "ID_TELEGRAM_CỦA_BAN" or user.username != "hoangluu18":
+        #     await context.bot.send_message(chat_id=chat.id, text="⛔ Không có quyền thực thi!")
+        #     return
+
+        command = " ".join(context.args)
+        if not command:
+            await context.bot.send_message(chat_id=chat.id, text="Cú pháp: /sh <lệnh bash>\nVí dụ: /sh ls -la")
+            return
+            
+        # Không chạy mấy lệnh mở màn hình tương tác gây treo bot như nano, vim, top...
+        if any(cmd in command for cmd in ["nano", "vim", "top", "htop"]):
+            await context.bot.send_message(chat_id=chat.id, text="❌ Không hỗ trợ chạy các lệnh tương tác (nano, vim, top...).")
+            return
+
+        try:
+            if platform.system() == "Windows":
+                 result = subprocess.run(["powershell", "-Command", command], capture_output=True, text=True, timeout=15)
+            else:
+                 result = subprocess.run(["/bin/bash", "-c", command], capture_output=True, text=True, timeout=15)
+
+            output = result.stdout if result.stdout else result.stderr
+            if not output:
+                output = "✅ Lệnh chạy thành công, không có output gì."
+                
+            if len(output) > 3900:
+                output = output[-3900:] + "\n... (Đã bị cắt bớt cho vừa tin nhắn Tele)"
+
+            await context.bot.send_message(chat_id=chat.id, text=f"💻 Terminal:\n```text\n{output}\n```", parse_mode="Markdown")
+
+        except subprocess.TimeoutExpired:
+            await context.bot.send_message(chat_id=chat.id, text="⏳ Lệnh chạy quá 15 giây. Bị hủy vì Timeout.")
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat.id, text=f"❌ Lỗi thực thi: {e}")
 
     async def cmd_force_update(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         user = update.effective_user
