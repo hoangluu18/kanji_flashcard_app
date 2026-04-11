@@ -446,13 +446,31 @@ class TelegramBotService:
                 uptime_info = "N/A (Chạy trên Windows Local)"
                 mem_usage = "N/A (Chạy trên Windows Local)"
             else:
-                # Get Uptime trên Linux
-                uptime_info = subprocess.check_output(["uptime", "-p"], text=True).strip()
+                # Đọc Uptime trực tiếp từ Linux /proc/uptime để tránh lỗi PATH của subprocess
+                with open('/proc/uptime', 'r') as f:
+                    uptime_seconds = float(f.readline().split()[0])
+                    days = int(uptime_seconds // 86400)
+                    hours = int((uptime_seconds % 86400) // 3600)
+                    minutes = int((uptime_seconds % 3600) // 60)
+                    uptime_parts = []
+                    if days > 0: uptime_parts.append(f"{days} days")
+                    if hours > 0: uptime_parts.append(f"{hours} hours")
+                    if minutes > 0: uptime_parts.append(f"{minutes} minutes")
+                    uptime_info = "up " + ", ".join(uptime_parts) if uptime_parts else "up less than a minute"
                 
-                # Get Memory trên Linux
-                mem_info = subprocess.check_output(["free", "-h"], text=True).split('\n')[1]
-                parts = mem_info.split()
-                mem_usage = f"RAM: {parts[2]} / {parts[1]} ({parts[6]} cache/avail)"
+                # Đọc Memory trực tiếp từ Linux /proc/meminfo
+                with open('/proc/meminfo', 'r') as f:
+                    mem_data = {}
+                    for line in f:
+                        if line.startswith(("MemTotal:", "MemAvailable:", "Cached:", "Buffers:")):
+                            parts = line.split()
+                            mem_data[parts[0].strip(":")] = int(parts[1]) # in kB
+                    
+                    total_mb = mem_data.get("MemTotal", 0) // 1024
+                    avail_mb = mem_data.get("MemAvailable", 0) // 1024
+                    used_mb = total_mb - avail_mb
+                    cache_mb = (mem_data.get("Cached", 0) + mem_data.get("Buffers", 0)) // 1024
+                    mem_usage = f"RAM: {used_mb}M / {total_mb}M ({cache_mb}M cache)"
 
             # Đọc log đa nền tảng (không dùng bash tail)
             log_path = Path("update.log")
