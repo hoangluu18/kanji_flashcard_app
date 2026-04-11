@@ -471,7 +471,11 @@ class TelegramBotService:
             if platform.system() == "Windows":
                  result = subprocess.run(["powershell", "-Command", command], capture_output=True, text=True, timeout=15)
             else:
-                 result = subprocess.run(["/bin/bash", "-c", command], capture_output=True, text=True, timeout=15)
+                 import os
+                 env = os.environ.copy()
+                 # Fix lỗi 'command not found': cấp cho sub-shell biến môi trường PATH với đầy đủ các thư mục chứa lệnh mặc định.
+                 env["PATH"] = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:" + env.get("PATH", "")
+                 result = subprocess.run(["/bin/bash", "-c", command], capture_output=True, text=True, timeout=15, env=env)
 
             output = result.stdout if result.stdout else result.stderr
             if not output:
