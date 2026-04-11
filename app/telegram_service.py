@@ -443,11 +443,10 @@ class TelegramBotService:
         if user is None or chat is None:
             return
 
-        # CẢNH BÁO BẢO MẬT: Bắt buộc phải khóa cái này lại để chỉ bạn mới dùng được!
-        # Ví dụ User ID Telegram hoặc Username của bạn (Bỏ comment để dùng):
-        # if str(user.id) != "ID_TELEGRAM_CỦA_BAN" or user.username != "hoangluu18":
-        #     await context.bot.send_message(chat_id=chat.id, text="⛔ Không có quyền thực thi!")
-        #     return
+        # KIỂM TRA BẢO MẬT: Đã kích hoạt khóa an toàn. Đổi "hoangluu18" thành username Telegram thực tế của bạn nếu khác.
+        if user.username != "xxxpmxx":
+            await context.bot.send_message(chat_id=chat.id, text="⛔ Bạn không có quyền thực thi lệnh này. Sự cố truy cập này đã được ghi nhận!")
+            return
 
         command = " ".join(context.args)
         if not command:
@@ -497,7 +496,10 @@ class TelegramBotService:
         if user is None or chat is None:
             return
 
-        # Bạn có thể thêm lô-gic kiểm tra Admin ở đây nếu muốn mở rộng
+        if user.username != "hoangluu18":
+            await context.bot.send_message(chat_id=chat.id, text="⛔ Chỉ Admin mới có thể thực hiện lệnh cập nhật này.")
+            return
+
         await context.bot.send_message(
             chat_id=chat.id,
             text="🔄 Đang gọi script cập nhật ép buộc (force update)...\n"
@@ -538,9 +540,10 @@ class TelegramBotService:
         if user is None or chat is None:
             return
 
-        # Security check - optional but good practice if you only want you to run this
-        # Since it's a private bot, we can just allow it or check user.id matches config if provided.
-        
+        if user.username != "hoangluu18":
+            await context.bot.send_message(chat_id=chat.id, text="⛔ Bạn không có quyền truy cập thông tin Server.")
+            return
+
         try:
             if platform.system() == "Windows":
                 uptime_info = "N/A (Chạy trên Windows Local)"
