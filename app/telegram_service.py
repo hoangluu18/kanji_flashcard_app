@@ -242,6 +242,7 @@ class TelegramBotService:
             "- /quick: phiên học nhanh ~10 phút\n"
             "- /review: chỉ học thẻ đến hạn\n"
             "- /stats: xem tiến độ học\n"
+            "- /settings: xem cấu hình giới hạn & nhắc nhở\n"
             "- /setnew <số>: chỉnh thẻ mới/ngày\n"
             "- /setlimit <số>: chỉnh giới hạn ôn/ngày\n"
             "- /vacation on|off: bật/tắt nghỉ học\n"
