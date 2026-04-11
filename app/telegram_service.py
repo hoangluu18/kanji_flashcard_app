@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from pathlib import Path
 import subprocess
+import platform
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.error import TelegramError
@@ -441,18 +442,24 @@ class TelegramBotService:
         # Since it's a private bot, we can just allow it or check user.id matches config if provided.
         
         try:
-            # Get Uptime
-            uptime_info = subprocess.check_output(["uptime", "-p"], text=True).strip()
-            
-            # Get Memory
-            mem_info = subprocess.check_output(["free", "-h"], text=True).split('\n')[1]
-            parts = mem_info.split()
-            mem_usage = f"RAM: {parts[2]} / {parts[1]} ({parts[6]} cache/avail)"
+            if platform.system() == "Windows":
+                uptime_info = "N/A (Chạy trên Windows Local)"
+                mem_usage = "N/A (Chạy trên Windows Local)"
+            else:
+                # Get Uptime trên Linux
+                uptime_info = subprocess.check_output(["uptime", "-p"], text=True).strip()
+                
+                # Get Memory trên Linux
+                mem_info = subprocess.check_output(["free", "-h"], text=True).split('\n')[1]
+                parts = mem_info.split()
+                mem_usage = f"RAM: {parts[2]} / {parts[1]} ({parts[6]} cache/avail)"
 
-            # Get update.log (last 10 lines)
+            # Đọc log đa nền tảng (không dùng bash tail)
             log_path = Path("update.log")
             if log_path.exists():
-                log_data = subprocess.check_output(["tail", "-n", "10", str(log_path)], text=True)
+                with open(log_path, "r", encoding="utf-8", errors="ignore") as f:
+                    lines = f.readlines()
+                    log_data = "".join(lines[-10:])
             else:
                 log_data = "update.log not found."
 
