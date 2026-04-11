@@ -456,8 +456,22 @@ class TelegramBotService:
                 )
             else:
                 # Kích hoạt script bash chạy ngầm ở background
+                import os
+                import subprocess
                 update_script = "/home/pmshoanghot/kanji_flashcard_app/auto_update.sh"
-                subprocess.Popen(["/bin/bash", update_script])
+                
+                # Bơm thêm PATH chuẩn của Linux để script hiểu được lệnh 'git' và 'curl' 
+                # (Vì mặc định SystemD của kanjibot chỉ có PATH vào thư mục .venv)
+                env = os.environ.copy()
+                env["PATH"] = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:" + env.get("PATH", "")
+                
+                subprocess.Popen(
+                    ["/bin/bash", update_script], 
+                    env=env,
+                    start_new_session=True, # Tách rời khỏi process của Bot để không bị systemctl giết lây
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL
+                )
                 
         except Exception as e:
             await context.bot.send_message(chat_id=chat.id, text=f"❌ Lỗi khi kích hoạt script: {e}")
