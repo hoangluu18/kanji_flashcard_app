@@ -451,7 +451,15 @@ class TelegramBotService:
 
         command = " ".join(context.args)
         if not command:
-            await context.bot.send_message(chat_id=chat.id, text="Cú pháp: /sh <lệnh bash>\nVí dụ: /sh ls -la")
+            warning_msg = (
+                "⚠️ *CẢNH BÁO QUAN TRỌNG*\n"
+                "1. Lệnh này cho phép thực thi trực tiếp trên OS (RẤT NGUY HIỂM).\n"
+                "2. Hiện tại *BẤT KỲ AI* chat với bot đều có thể chạy lệnh. Hãy vào `app/telegram_service.py` bỏ comment phần kiểm tra ID/username để khóa lại!\n"
+                "3. *TUYỆT ĐỐI KHÔNG* chạy các lệnh tương tác (nano, vim, top, htop...) vì bot sẽ bị treo.\n\n"
+                "Cú pháp sử dụng: `/sh <lệnh bash>`\n"
+                "Ví dụ: `/sh ls -la`"
+            )
+            await context.bot.send_message(chat_id=chat.id, text=warning_msg, parse_mode="Markdown")
             return
             
         # Không chạy mấy lệnh mở màn hình tương tác gây treo bot như nano, vim, top...
