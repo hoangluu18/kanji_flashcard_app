@@ -145,6 +145,7 @@ class TelegramBotService:
         self.application.add_handler(CommandHandler("vacation", self.cmd_vacation))
         self.application.add_handler(CommandHandler("backlog", self.cmd_backlog))
         self.application.add_handler(CommandHandler("vm_status", self.cmd_vm_status))
+        self.application.add_handler(CommandHandler("force_update", self.cmd_force_update))
         self.application.add_handler(CallbackQueryHandler(self.callback_router))
 
     async def initialize(self) -> None:
@@ -245,7 +246,8 @@ class TelegramBotService:
             "- /setlimit <số>: chỉnh giới hạn ôn/ngày\n"
             "- /vacation on|off: bật/tắt nghỉ học\n"
             "- /backlog: xem tồn đọng cần xử lý\n"
-            "- /vm_status: xem trạng thái máy chủ (logs, memory)"
+            "- /vm_status: xem trạng thái máy chủ (logs, memory)\n"
+            "- /force_update: ép máy chủ cập nhật code tức thì"
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
 
@@ -431,6 +433,33 @@ class TelegramBotService:
             "Gợi ý: Trong tuần ôn nhẹ, cuối tuần dọn backlog theo tỷ lệ 40/60."
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
+
+    async def cmd_force_update(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        user = update.effective_user
+        chat = update.effective_chat
+        if user is None or chat is None:
+            return
+
+        # Bạn có thể thêm lô-gic kiểm tra Admin ở đây nếu muốn mở rộng
+        await context.bot.send_message(
+            chat_id=chat.id,
+            text="🔄 Đang gọi script cập nhật ép buộc (force update)...\n"
+                 "Nếu có code mới, Bot sẽ tự động khởi động lại và mất kết nối vài giây!"
+        )
+
+        try:
+            if platform.system() == "Windows":
+                await context.bot.send_message(
+                    chat_id=chat.id,
+                    text="⚠️ Bỏ qua update vì đang chạy trên môi trường giả lập Windows Local."
+                )
+            else:
+                # Kích hoạt script bash chạy ngầm ở background
+                update_script = "/home/pmshoanghot/kanji_flashcard_app/auto_update.sh"
+                subprocess.Popen(["/bin/bash", update_script])
+                
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat.id, text=f"❌ Lỗi khi kích hoạt script: {e}")
 
     async def cmd_vm_status(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         user = update.effective_user
