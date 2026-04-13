@@ -443,7 +443,7 @@ class TelegramBotService:
         if user is None or chat is None:
             return
 
-        # KIỂM TRA BẢO MẬT: Đã kích hoạt khóa an toàn. Đổi "hoangluu18" thành username Telegram thực tế của bạn nếu khác.
+        # KIỂM TRA BẢO MẬT: Đã kích hoạt khóa an toàn. Đổi "xxxpmxx" thành username Telegram thực tế của bạn nếu khác.
         if user.username != "xxxpmxx":
             await context.bot.send_message(chat_id=chat.id, text="⛔ Bạn không có quyền thực thi lệnh này. Sự cố truy cập này đã được ghi nhận!")
             return
@@ -496,7 +496,7 @@ class TelegramBotService:
         if user is None or chat is None:
             return
 
-        if user.username != "hoangluu18":
+        if user.username != "xxxpmxx":
             await context.bot.send_message(chat_id=chat.id, text="⛔ Chỉ Admin mới có thể thực hiện lệnh cập nhật này.")
             return
 
@@ -540,7 +540,7 @@ class TelegramBotService:
         if user is None or chat is None:
             return
 
-        if user.username != "hoangluu18":
+        if user.username != "xxxpmxx":
             await context.bot.send_message(chat_id=chat.id, text="⛔ Bạn không có quyền truy cập thông tin Server.")
             return
 
