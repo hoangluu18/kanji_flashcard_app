@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import asyncio
 import io
 from pathlib import Path
+from typing import AsyncIterator
 
 from google import genai
 from google.genai import types
@@ -137,3 +139,43 @@ class GeminiService:
     async def ask(self, question: str) -> str:
         """Gửi câu hỏi không kèm ảnh tới Gemini API."""
         return await self.ask_with_image(question=question, image_bytes=None)
+
+    async def stream_with_image(self, question: str, image_bytes: bytes | None = None) -> AsyncIterator[str]:
+        """Streaming response — yield từng chunk khi Gemini trả về."""
+        if not self.enabled or self.client is None:
+            yield "⚠️ Gemini AI hiện chưa được cấu hình. Liên hệ admin để kích hoạt."
+            return
+
+        try:
+            contents = []
+
+            if image_bytes:
+                contents.append(types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"))
+
+            contents.append(types.Part.from_text(text=question))
+
+            config = types.GenerateContentConfig(
+                system_instruction=SYSTEM_PROMPT,
+                temperature=0.7,
+                max_output_tokens=4096,
+            )
+
+            # Streaming mode
+            response = self.client.models.generate_content_stream(
+                model=self.model,
+                contents=contents,
+                config=config,
+            )
+
+            for chunk in response:
+                if chunk.text:
+                    yield chunk.text
+
+        except Exception as exc:
+            logger.exception("Gemini stream failed: %s", exc)
+            yield f"❌ Lỗi khi gọi Gemini AI: {str(exc)}"
+
+    async def stream(self, question: str) -> AsyncIterator[str]:
+        """Streaming không ảnh."""
+        async for chunk in self.stream_with_image(question=question, image_bytes=None):
+            yield chunk

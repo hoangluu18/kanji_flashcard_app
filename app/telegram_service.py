@@ -756,58 +756,74 @@ class TelegramBotService:
             )
             return
 
-        # Gửi thông báo đang xử lý
-        status_msg = await context.bot.send_message(chat_id=chat.id, text="🤖 Đang suy nghĩ...")
+        # Lấy câu hỏi từ user
+        question = " ".join(context.args) if context.args else ""
 
-        try:
-            # Lấy câu hỏi từ user
-            question = " ".join(context.args) if context.args else ""
-
-            # Kiểm tra xem có ảnh trong reply message không
-            image_bytes = None
-            if update.message and update.message.reply_to_message:
-                replied_msg = update.message.reply_to_message
-                if replied_msg.photo:
-                    photo = replied_msg.photo[-1]  # Lấy ảnh độ phân giải cao nhất
-                    file = await photo.get_file()
-                    image_bytes = await file.download_as_bytearray()
-            elif update.message and update.message.photo:
-                # Trường hợp user gửi ảnh kèm caption
-                photo = update.message.photo[-1]
+        # Kiểm tra xem có ảnh trong reply message không
+        image_bytes = None
+        if update.message and update.message.reply_to_message:
+            replied_msg = update.message.reply_to_message
+            if replied_msg.photo:
+                photo = replied_msg.photo[-1]
                 file = await photo.get_file()
                 image_bytes = await file.download_as_bytearray()
+        elif update.message and update.message.photo:
+            photo = update.message.photo[-1]
+            file = await photo.get_file()
+            image_bytes = await file.download_as_bytearray()
 
-            # Nếu không có câu hỏi và không có ảnh
-            if not question and not image_bytes:
-                await status_msg.edit_text(
-                    "💡 Cách dùng:\n"
-                    "• `/gemini câu hỏi của bạn`\n"
-                    "• Reply ảnh bằng `/gemini` để hỏi về ảnh\n"
-                    "• Gửi ảnh kèm caption: `/gemini Đây là kanji gì?`\n\n"
-                    "📝 Ví dụ:\n"
-                    "• `/gemini Kanji 陵 nghĩa là gì?`\n"
-                    "• `/gemini Giải thích từ vựng trong ảnh này`"
-                )
-                return
+        # Nếu không có câu hỏi và không có ảnh
+        if not question and not image_bytes:
+            await context.bot.send_message(
+                chat_id=chat.id,
+                text="💡 Cách dùng:\n"
+                     "• `/gemini câu hỏi của bạn`\n"
+                     "• Reply ảnh bằng `/gemini` để hỏi về ảnh\n"
+                     "• Gửi ảnh kèm caption: `/gemini Đây là kanji gì?`\n\n"
+                     "📝 Ví dụ:\n"
+                     "• `/gemini Kanji 陵 nghĩa là gì?`\n"
+                     "• `/gemini Giải thích từ vựng trong ảnh này`",
+                parse_mode="Markdown",
+            )
+            return
 
-            # Nếu không có question nhưng có ảnh, tạo câu hỏi mặc định
-            if not question and image_bytes:
-                question = "Hãy phân tích nội dung ảnh này và giải thích chi tiết."
+        # Nếu không có question nhưng có ảnh, tạo câu hỏi mặc định
+        if not question and image_bytes:
+            question = "Hãy phân tích nội dung ảnh này và giải thích chi tiết."
 
-            # Gọi Gemini API
-            if image_bytes:
-                response_text = await self.gemini.ask_with_image(
-                    question=question,
-                    image_bytes=bytes(image_bytes)
-                )
-            else:
-                response_text = await self.gemini.ask(question=question)
+        # Gửi tin nhắn chờ — sẽ được edit liên tục khi streaming
+        status_msg = await context.bot.send_message(
+            chat_id=chat.id,
+            text="🤖 **Gemini AI:**\n\n_Đang tạo phản hồi..._"
+        )
 
-            # Gemini trả lời có thể rất dài > 4096 chars (Telegram limit)
-            if len(response_text) > 4000:
-                response_text = response_text[:4000] + "\n\n... (còn tiếp)"
+        try:
+            full_response = ""
+            # Streaming: nhận từng chunk và edit tin nhắn liên tục
+            async for chunk in self.gemini.stream_with_image(
+                question=question,
+                image_bytes=bytes(image_bytes) if image_bytes else None,
+            ):
+                full_response += chunk
 
-            await status_msg.edit_text(f"🤖 **Gemini AI:**\n\n{response_text}", parse_mode="Markdown")
+                # Telegram giới hạn 4096 chars cho 1 tin nhắn
+                display = full_response
+                suffix = ""
+                if len(display) > 4000:
+                    display = display[:4000]
+                    suffix = "\n\n_... (đang tiếp tục)_"
+
+                try:
+                    await status_msg.edit_text(
+                        f"🤖 **Gemini AI:**\n\n{display}{suffix}",
+                        parse_mode="Markdown",
+                    )
+                except Exception:
+                    # Bỏ qua lỗi edit trùng (chunk quá ngắn) — chờ chunk tiếp
+                    pass
+
+                # Tránh flood Telegram API — edit tối đa ~5 lần/giây
+                await asyncio.sleep(0.2)
 
         except Exception as exc:
             logger.exception("Gemini command failed: %s", exc)
