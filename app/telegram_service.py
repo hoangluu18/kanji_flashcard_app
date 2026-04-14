@@ -112,6 +112,27 @@ def _start_evening_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup([[InlineKeyboardButton("Ôn buổi tối", callback_data="start_evening")]])
 
 
+def _md_to_html(text: str) -> str:
+    """Convert markdown cơ bản → HTML để Telegram render."""
+    import re
+    # Heading: ## text → <b>text</b>
+    text = re.sub(r"^#+\s+(.+)$", r"<b>\1</b>", text, flags=re.MULTILINE)
+
+    # Bold: **text** → <b>text</b>
+    text = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text)
+
+    # Italic: *text* → <i>text</i> (không match ** đã xử lý)
+    text = re.sub(r"(?<!\*)\*(.+?)\*(?!\*)", r"<i>\1</i>", text)
+
+    # Italic: _text_ → <i>text</i>
+    text = re.sub(r"(?<!\w)_(.+?)_(?!\w)", r"<i>\1</i>", text)
+
+    # Inline code: `text` → <code>text</code>
+    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
+
+    return text
+
+
 class TelegramBotService:
     def __init__(self, settings: Settings, session_factory):
         self.settings = settings

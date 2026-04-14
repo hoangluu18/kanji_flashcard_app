@@ -103,9 +103,15 @@ class GeminiService:
 
             # Thêm ảnh nếu có
             if image_bytes:
+                img_mime = "image/jpeg"
+                if image_bytes.startswith(b"\x89PNG"):
+                    img_mime = "image/png"
+                elif image_bytes.startswith(b"RIFF"):
+                    img_mime = "image/webp"
+
                 image_part = types.Part.from_bytes(
                     data=image_bytes,
-                    mime_type="image/jpeg",
+                    mime_type=img_mime,
                 )
                 contents.append(image_part)
 
@@ -121,7 +127,7 @@ class GeminiService:
             )
 
             # Gửi request tới Gemini
-            response = self.client.models.generate_content(
+            response = await self.client.aio.models.generate_content(
                 model=self.model,
                 contents=contents,
                 config=generate_content_config,
@@ -150,7 +156,13 @@ class GeminiService:
             contents = []
 
             if image_bytes:
-                contents.append(types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"))
+                img_mime = "image/jpeg"
+                if image_bytes.startswith(b"\x89PNG"):
+                    img_mime = "image/png"
+                elif image_bytes.startswith(b"RIFF"):
+                    img_mime = "image/webp"
+
+                contents.append(types.Part.from_bytes(data=image_bytes, mime_type=img_mime))
 
             contents.append(types.Part.from_text(text=question))
 
@@ -161,13 +173,13 @@ class GeminiService:
             )
 
             # Streaming mode
-            response = self.client.models.generate_content_stream(
+            response = await self.client.aio.models.generate_content_stream(
                 model=self.model,
                 contents=contents,
                 config=config,
             )
 
-            for chunk in response:
+            async for chunk in response:
                 if chunk.text:
                     yield chunk.text
 
