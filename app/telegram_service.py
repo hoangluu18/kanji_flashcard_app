@@ -122,6 +122,7 @@ def _md_to_html(text: str) -> str:
 
     # Chuẩn hóa các kí hiệu LaTeX phổ biến Gemini hay trả ra.
     text = re.sub(r"\$?\s*\\+(?:rightarrow|Rightarrow|to)\s*\$?", "➡️", text)
+    text = re.sub(r"\\text\{([^{}\n]+)\}", r"\1", text)
     text = re.sub(r"\$([^$\n]+)\$", r"\1", text)
 
     def _format_inline(line: str) -> str:
@@ -131,9 +132,37 @@ def _md_to_html(text: str) -> str:
         line = re.sub(r"(?<!\w)_([^_\n]+)_(?!\w)", r"<i>\1</i>", line)
         return line
 
+    lines = text.split("\n")
     rendered_lines: list[str] = []
-    for raw_line in text.split("\n"):
-        line = raw_line
+    i = 0
+    table_separator_pattern = re.compile(r"^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$")
+
+    while i < len(lines):
+        line = lines[i]
+
+        # Markdown table block:
+        # | H1 | H2 |
+        # | --- | --- |
+        # | v1 | v2 |
+        if (
+            i + 1 < len(lines)
+            and "|" in line
+            and table_separator_pattern.match(lines[i + 1] or "")
+        ):
+            headers = [cell.strip() for cell in line.strip().strip("|").split("|")]
+            header_line = " | ".join(f"<b>{_format_inline(cell)}</b>" for cell in headers if cell)
+            if header_line:
+                rendered_lines.append(header_line)
+
+            i += 2  # Skip header + separator row.
+            while i < len(lines) and "|" in lines[i]:
+                row_cells = [cell.strip() for cell in lines[i].strip().strip("|").split("|")]
+                row_line = " | ".join(_format_inline(cell) for cell in row_cells if cell)
+                if row_line:
+                    rendered_lines.append(f"• {row_line}")
+                i += 1
+            continue
+
         if line.startswith("#"):
             line = re.sub(r"^#+\s*", "", line)
             line = f"<b>{_format_inline(line)}</b>"
@@ -141,6 +170,7 @@ def _md_to_html(text: str) -> str:
             line = re.sub(r"^\s*[-*]\s+", "• ", line)
             line = _format_inline(line)
         rendered_lines.append(line)
+        i += 1
 
     return "\n".join(rendered_lines)
 
@@ -153,6 +183,9 @@ class TelegramBotService:
         self.enabled = settings.bot_ready
         self.use_webhook = settings.telegram_use_webhook
         self.gemini = GeminiService(settings)
+        self._seen_update_ids: dict[int, float] = {}
+        self._update_dedupe_window_seconds = 900.0
+        self._update_dedupe_lock = asyncio.Lock()
 
         if not self.enabled:
             logger.warning(
@@ -227,7 +260,31 @@ class TelegramBotService:
         update = Update.de_json(payload, self.application.bot)
         if update is None:
             return
+
+        if not await self._register_update_id(update.update_id):
+            logger.info("Skip duplicate Telegram update_id=%s", update.update_id)
+            return
+
         await self.application.process_update(update)
+
+    async def _register_update_id(self, update_id: int) -> bool:
+        """Return False when update_id has been seen recently (dedupe)."""
+        now = asyncio.get_running_loop().time()
+
+        async with self._update_dedupe_lock:
+            expired_ids = [
+                seen_id
+                for seen_id, ts in self._seen_update_ids.items()
+                if now - ts > self._update_dedupe_window_seconds
+            ]
+            for seen_id in expired_ids:
+                self._seen_update_ids.pop(seen_id, None)
+
+            if update_id in self._seen_update_ids:
+                return False
+
+            self._seen_update_ids[update_id] = now
+            return True
 
     async def ensure_webhook(self) -> str:
         if not self.enabled or self.application is None:

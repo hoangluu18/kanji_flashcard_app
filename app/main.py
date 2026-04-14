@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from dataclasses import dataclass
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
@@ -15,6 +16,14 @@ from app.scheduler_service import SchedulerService
 from app.telegram_service import TelegramBotService
 
 logger = get_logger(__name__)
+
+
+async def _process_telegram_update_background(runtime: "RuntimeState", payload: dict) -> None:
+    """Process Telegram update outside HTTP response path to avoid webhook retries."""
+    try:
+        await runtime.telegram.process_update(payload)
+    except Exception as exc:
+        logger.exception("Background Telegram update processing failed: %s", exc)
 
 
 @dataclass
@@ -153,7 +162,8 @@ async def telegram_webhook(secret: str, request: Request) -> dict:
         raise HTTPException(status_code=401, detail="Invalid webhook secret")
 
     payload = await request.json()
-    await runtime.telegram.process_update(payload)
+    # Respond quickly so Telegram does not retry the same update when handlers are slow.
+    asyncio.create_task(_process_telegram_update_background(runtime, payload))
     return {"ok": True}
 
 
