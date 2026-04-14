@@ -870,36 +870,6 @@ class TelegramBotService:
             logger.exception("Gemini command failed: %s", exc)
             await status_msg.edit_text(f"❌ Có lỗi xảy ra: {str(exc)}")
 
-
-def _md_to_html(text: str) -> str:
-    """Convert markdown cơ bản → HTML để Telegram render."""
-    import re
-
-    # Debug: log input đầu tiên
-    logger.debug("MD→HTML input (first 200 chars): %s", repr(text[:200]))
-
-    # 1. Markdown → HTML
-    # Heading: ## text → <b>text</b>
-    text = re.sub(r"^## (.+)$", r"<b>\1</b>", text, flags=re.MULTILINE)
-    text = re.sub(r"^### (.+)$", r"<i>\1</i>", text, flags=re.MULTILINE)
-
-    # Bold: **text** → <b>text</b>
-    text = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text)
-
-    # Italic: *text* → <i>text</i> (không match ** đã xử lý)
-    text = re.sub(r"(?<!\*)\*(.+?)\*(?!\*)", r"<i>\1</i>", text)
-
-    # Italic: _text_ → <i>text</i>
-    text = re.sub(r"(?<!\w)_(.+?)_(?!\w)", r"<i>\1</i>", text)
-
-    # Inline code: `text` → <code>text</code>
-    text = re.sub(r"`(.+?)`", r"<code>\1</code>", text)
-
-    # Debug: log output
-    logger.debug("MD→HTML output (first 200 chars): %s", repr(text[:200]))
-
-    return text
-
     async def callback_router(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         query = update.callback_query
         if query is None:
