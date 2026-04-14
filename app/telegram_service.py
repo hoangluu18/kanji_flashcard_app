@@ -117,20 +117,27 @@ def _md_to_html(text: str) -> str:
     import re
     import html
 
-    # 1. Bắt buộc phải Escape HTML (<, >, &) để Telegram không bị lỗi Parse
+    # 1. Escape HTML (<, >, &) để Telegram không bị lỗi Parse
     text = html.escape(text, quote=False)
+
+    # 2. Thay thế các ký hiệu toán học phổ biến Gemini hay dùng
+    text = text.replace("$\\rightarrow$", "➡️").replace("\\rightarrow", "➡️")
+    text = text.replace("$\\Rightarrow$", "➡️").replace("\\Rightarrow", "➡️")
+
+    # Đầu dòng có bullet * hoặc -
+    text = re.sub(r"^\s*[\*\-]\s+(.+)$", r"• \1", text, flags=re.MULTILINE)
 
     # Heading: ## text → <b>text</b>
     text = re.sub(r"^#+\s+(.+)$", r"<b>\1</b>", text, flags=re.MULTILINE)
 
     # Bold: **text** → <b>text</b>
-    text = re.sub(r"\*\*([^\*]+)\*\*", r"<b>\1</b>", text)
+    text = re.sub(r"\*\*([\s\S]+?)\*\*", r"<b>\1</b>", text)
 
-    # Italic: *text* → <i>text</i> (không match ** đã xử lý)
-    text = re.sub(r"(?<!\*)\*([^\*]+)\*(?!\*)", r"<i>\1</i>", text)
+    # Italic: *text* → <i>text</i> - Lưu ý: dùng [\s\S]+? để không bị lag nếu qua dòng mới
+    text = re.sub(r"(?<!\*)\*([^\*]+?)\*(?!\*)", r"<i>\1</i>", text)
 
     # Italic: _text_ → <i>text</i>
-    text = re.sub(r"(?<!\w)_([^_]+)_(?!\w)", r"<i>\1</i>", text)
+    text = re.sub(r"(?<!\w)_([^_]+?)_(?!\w)", r"<i>\1</i>", text)
 
     # Inline code: `text` → <code>text</code>
     text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
