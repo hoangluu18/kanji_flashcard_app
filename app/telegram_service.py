@@ -7,7 +7,7 @@ import subprocess
 import platform
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram.error import TelegramError
+from telegram.error import RetryAfter, TelegramError
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 
 from app.config import Settings
@@ -117,32 +117,32 @@ def _md_to_html(text: str) -> str:
     import re
     import html
 
-    # 1. Escape HTML (<, >, &) để Telegram không bị lỗi Parse
-    text = html.escape(text, quote=False)
+    # Escape HTML trước để không vỡ parse_mode=HTML.
+    text = html.escape((text or "").replace("\r\n", "\n").replace("\r", "\n"), quote=False)
 
-    # 2. Thay thế các ký hiệu toán học phổ biến Gemini hay dùng
-    text = text.replace("$\\rightarrow$", "➡️").replace("\\rightarrow", "➡️")
-    text = text.replace("$\\Rightarrow$", "➡️").replace("\\Rightarrow", "➡️")
+    # Chuẩn hóa các kí hiệu LaTeX phổ biến Gemini hay trả ra.
+    text = re.sub(r"\$?\s*\\+(?:rightarrow|Rightarrow|to)\s*\$?", "➡️", text)
+    text = re.sub(r"\$([^$\n]+)\$", r"\1", text)
 
-    # Đầu dòng có bullet * hoặc -
-    text = re.sub(r"^\s*[\*\-]\s+(.+)$", r"• \1", text, flags=re.MULTILINE)
+    def _format_inline(line: str) -> str:
+        line = re.sub(r"`([^`\n]+)`", r"<code>\1</code>", line)
+        line = re.sub(r"\*\*([^*\n]+)\*\*", r"<b>\1</b>", line)
+        line = re.sub(r"(?<!\*)\*([^*\n]+)\*(?!\*)", r"<i>\1</i>", line)
+        line = re.sub(r"(?<!\w)_([^_\n]+)_(?!\w)", r"<i>\1</i>", line)
+        return line
 
-    # Heading: ## text → <b>text</b>
-    text = re.sub(r"^#+\s+(.+)$", r"<b>\1</b>", text, flags=re.MULTILINE)
+    rendered_lines: list[str] = []
+    for raw_line in text.split("\n"):
+        line = raw_line
+        if line.startswith("#"):
+            line = re.sub(r"^#+\s*", "", line)
+            line = f"<b>{_format_inline(line)}</b>"
+        else:
+            line = re.sub(r"^\s*[-*]\s+", "• ", line)
+            line = _format_inline(line)
+        rendered_lines.append(line)
 
-    # Bold: **text** → <b>text</b>
-    text = re.sub(r"\*\*([\s\S]+?)\*\*", r"<b>\1</b>", text)
-
-    # Italic: *text* → <i>text</i> - Lưu ý: dùng [\s\S]+? để không bị lag nếu qua dòng mới
-    text = re.sub(r"(?<!\*)\*([^\*]+?)\*(?!\*)", r"<i>\1</i>", text)
-
-    # Italic: _text_ → <i>text</i>
-    text = re.sub(r"(?<!\w)_([^_]+?)_(?!\w)", r"<i>\1</i>", text)
-
-    # Inline code: `text` → <code>text</code>
-    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
-
-    return text
+    return "\n".join(rendered_lines)
 
 
 class TelegramBotService:
@@ -867,6 +867,12 @@ class TelegramBotService:
 
         try:
             full_response = ""
+            loop = asyncio.get_running_loop()
+            last_edit_ts = 0.0
+            last_edit_len = 0
+            min_edit_interval = 1.6
+            min_len_delta = 140
+
             # Streaming: nhận từng chunk và edit tin nhắn liên tục
             async for chunk in self.gemini.stream_with_image(
                 question=question,
@@ -874,11 +880,15 @@ class TelegramBotService:
             ):
                 full_response += chunk
 
+                now = loop.time()
+                if (len(full_response) - last_edit_len) < min_len_delta and (now - last_edit_ts) < min_edit_interval:
+                    continue
+
                 # Telegram giới hạn 4096 chars cho 1 tin nhắn
                 display = full_response
                 suffix = ""
-                if len(display) > 4000:
-                    display = display[:4000]
+                if len(display) > 3900:
+                    display = display[:3900]
                     suffix = "\n\n_... (đang tiếp tục)_"
 
                 try:
@@ -886,10 +896,16 @@ class TelegramBotService:
                     await status_msg.edit_text(
                         f"🤖 Gemini AI:\n\n{display}{suffix}",
                     )
-                except Exception:
-                    pass
+                    last_edit_ts = now
+                    last_edit_len = len(full_response)
+                except RetryAfter as exc:
+                    retry_after = float(getattr(exc, "retry_after", 1))
+                    logger.warning("Telegram flood control while streaming Gemini, retry_after=%s", retry_after)
+                    await asyncio.sleep(max(1.0, retry_after) + 0.2)
+                except TelegramError as exc:
+                    logger.warning("Skip Gemini stream update because Telegram rejected edit: %s", exc)
 
-                await asyncio.sleep(0.2)
+            await asyncio.sleep(0.8)
 
             # Streaming xong — convert markdown → HTML để render đẹp
             if full_response:
@@ -897,7 +913,31 @@ class TelegramBotService:
                 final_msg = f"🤖 <b>Gemini AI:</b>\n\n{html_text}"
                 if len(final_msg) > 4000:
                     final_msg = final_msg[:4000] + "\n\n<i>(bị cắt do giới hạn Telegram)</i>"
-                await status_msg.edit_text(final_msg, parse_mode="HTML")
+
+                sent_final = False
+                for _ in range(2):
+                    try:
+                        await status_msg.edit_text(final_msg, parse_mode="HTML")
+                        sent_final = True
+                        break
+                    except RetryAfter as exc:
+                        retry_after = float(getattr(exc, "retry_after", 1))
+                        logger.warning("Telegram flood control in final Gemini render, retry_after=%s", retry_after)
+                        await asyncio.sleep(max(1.0, retry_after) + 0.2)
+                    except TelegramError as exc:
+                        logger.warning("Final Gemini HTML render failed, fallback to plain text: %s", exc)
+                        break
+
+                if not sent_final:
+                    fallback_msg = f"🤖 Gemini AI:\n\n{full_response}"
+                    if len(fallback_msg) > 4000:
+                        fallback_msg = fallback_msg[:4000] + "\n\n...(bị cắt do giới hạn Telegram)"
+                    try:
+                        await status_msg.edit_text(fallback_msg)
+                    except RetryAfter as exc:
+                        retry_after = float(getattr(exc, "retry_after", 1))
+                        await asyncio.sleep(max(1.0, retry_after) + 0.2)
+                        await status_msg.edit_text(fallback_msg)
 
         except Exception as exc:
             logger.exception("Gemini command failed: %s", exc)
