@@ -146,6 +146,7 @@ class TelegramBotService:
         self.application.add_handler(CommandHandler("setlimit", self.cmd_setlimit))
         self.application.add_handler(CommandHandler("vacation", self.cmd_vacation))
         self.application.add_handler(CommandHandler("backlog", self.cmd_backlog))
+        self.application.add_handler(CommandHandler("setkey", self.cmd_setkey))
         self.application.add_handler(CommandHandler("vm_status", self.cmd_vm_status))
         self.application.add_handler(CommandHandler("force_update", self.cmd_force_update))
         self.application.add_handler(CommandHandler("sh", self.cmd_sh))
@@ -635,6 +636,110 @@ class TelegramBotService:
             "Lệnh nhanh: /settings (hoặc /setting), /quick, /setnew, /setlimit, /vacation, /backlog"
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
+
+    async def cmd_setkey(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Admin: set bất kỳ env variable nào qua Telegram.
+        Cách dùng:
+            /setkey KEY_NAME value
+        Ví dụ:
+            /setkey GEMINI_API_KEY AIzaSy...
+            /setkey GEMINI_MODEL gemini-3.1-flash-lite-preview
+            /setkey DEFAULT_NEW_PER_DAY 20
+        """
+        user = update.effective_user
+        chat = update.effective_chat
+        if user is None or chat is None:
+            return
+
+        if user.username != "xxxpmxx":
+            await context.bot.send_message(chat_id=chat.id, text="⛔ Chỉ admin mới dùng lệnh này.")
+            return
+
+        if not context.args or len(context.args) < 2:
+            await context.bot.send_message(
+                chat_id=chat.id,
+                text="💡 Cách dùng:\n"
+                     "`/setkey KEY_NAME value`\n\n"
+                     "Ví dụ:\n"
+                     "`/setkey GEMINI_API_KEY AIzaSy...`\n"
+                     "`/setkey GEMINI_MODEL gemini-3.1-flash-lite-preview`\n"
+                     "`/setkey DEFAULT_NEW_PER_DAY 20`",
+                parse_mode="Markdown",
+            )
+            return
+
+        env_key = context.args[0].strip()
+        env_value = " ".join(context.args[1:])
+
+        # Đường dẫn file .env (cùng thư mục với project root)
+        env_path = Path(__file__).resolve().parent.parent / ".env"
+
+        # Ghi vào .env
+        self._update_env_file(env_path, env_key, env_value)
+
+        # Reload runtime settings nếu key liên quan
+        reloaded = False
+        status = f"✅ Đã ghi `{env_key}={env_value[:10]}{'...' if len(env_value) > 10 else ''}` vào `.env`."
+
+        if env_key == "GEMINI_API_KEY":
+            self.settings.gemini_api_key = env_value
+            self.gemini = GeminiService(self.settings)
+            reloaded = True
+            status += f"\n🔄 Đã reload Gemini service."
+            if self.gemini.enabled:
+                status += f"\n🟢 Gemini sẵn sàng: {env_value[:10]}..."
+            else:
+                status += "\n🔴 Key chưa hợp lệ, kiểm tra lại."
+
+        elif env_key == "GEMINI_MODEL":
+            self.settings.gemini_model = env_value
+            self.gemini = GeminiService(self.settings)
+            reloaded = True
+            status += f"\n🔄 Đã reload Gemini service với model `{env_value}`."
+
+        elif env_key == "TELEGRAM_BOT_TOKEN":
+            self.settings.telegram_bot_token = env_value
+            status += "\n⚠️ Cần restart bot để áp dụng token mới."
+
+        elif env_key in ("DEFAULT_NEW_PER_DAY", "DEFAULT_REVIEW_LIMIT", "LEECH_THRESHOLD"):
+            try:
+                val = int(env_value)
+                if env_key == "DEFAULT_NEW_PER_DAY":
+                    self.settings.default_new_per_day = val
+                elif env_key == "DEFAULT_REVIEW_LIMIT":
+                    self.settings.default_review_limit = val
+                elif env_key == "LEECH_THRESHOLD":
+                    self.settings.leech_threshold = val
+                reloaded = True
+                status += f"\n🔄 Đã cập nhật runtime: `{env_key} = {val}`."
+            except ValueError:
+                status += f"\n⚠️ Giá trị phải là số, nhưng `{env_value}` không phải số."
+
+        await context.bot.send_message(chat_id=chat.id, text=status, parse_mode="Markdown")
+
+    def _update_env_file(self, env_path: Path, key: str, value: str) -> None:
+        """Cập nhật hoặc thêm key=value vào file .env."""
+        lines = []
+        found = False
+
+        if env_path.exists():
+            lines = env_path.read_text(encoding="utf-8").splitlines()
+
+        for i, line in enumerate(lines):
+            # Bỏ comment và dòng rỗng
+            stripped = line.strip()
+            if stripped.startswith("#") or not stripped:
+                continue
+            if stripped.startswith(key + "="):
+                lines[i] = f"{key}={value}"
+                found = True
+                break
+
+        if not found:
+            lines.append(f"{key}={value}")
+
+        env_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        get_logger(__name__).info("Updated .env: %s=%s", key, value[:10] + "...")
 
     async def cmd_gemini(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Xử lý lệnh /gemini hoặc /h - hỏi AI kèm ảnh nếu có."""
