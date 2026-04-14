@@ -762,81 +762,66 @@ class TelegramBotService:
 
         # Lấy caption nếu có (ảnh kèm caption /gemini xxx)
         if not question and update.message and update.message.caption:
-            # Trừ phần lệnh /gemini hoặc /h
             caption = update.message.caption.strip()
             if caption.startswith("/gemini") or caption.startswith("/h "):
-                # Lấy phần sau lệnh
                 parts = caption.split(" ", 1)
                 if len(parts) > 1:
                     question = parts[1].strip()
                 else:
                     question = ""
 
-        # Kiểm tra xem có ảnh trong reply message không
+        # Tạo status_msg TRƯỚC để dùng trong error handling
+        status_msg = await context.bot.send_message(
+            chat_id=chat.id,
+            text="🤖 Gemini AI:\n\n_Đang tạo phản hồi..._",
+        )
+
+        # Tải ảnh nếu có (reply hoặc direct photo)
         image_bytes = None
-        if update.message and update.message.reply_to_message:
-            replied_msg = update.message.reply_to_message
-            logger.info("Reply detected. replied_msg attrs: photo=%s, text=%s, caption=%s",
-                        bool(replied_msg.photo), bool(replied_msg.text), bool(replied_msg.caption))
-            if replied_msg.photo:
-                photo = replied_msg.photo[-1]  # Lấy ảnh độ phân giải cao nhất
-                logger.info("Downloading photo, file_id=%s", photo.file_id)
-                try:
+        try:
+            if update.message and update.message.reply_to_message:
+                replied_msg = update.message.reply_to_message
+                if replied_msg.photo:
+                    photo = replied_msg.photo[-1]
+                    logger.info("Downloading reply photo, file_id=%s", photo.file_id)
                     file = await photo.get_file()
                     image_bytes = await file.download_as_bytearray()
-                    logger.info("Photo downloaded, size=%s bytes", len(image_bytes))
-                except Exception as exc:
-                    logger.exception("Failed to download photo: %s", exc)
-                    await status_msg.edit_text(f"❌ Không tải được ảnh: {exc}")
-                    return
-            elif replied_msg.document and replied_msg.document.mime_type.startswith("image/"):
-                # Trường hợp user gửi ảnh dạng file/document
-                doc = replied_msg.document
-                logger.info("Downloading image document, file_id=%s", doc.file_id)
-                try:
+                    logger.info("Reply photo downloaded, size=%s bytes", len(image_bytes))
+                elif replied_msg.document and replied_msg.document.mime_type.startswith("image/"):
+                    doc = replied_msg.document
+                    logger.info("Downloading reply image document, file_id=%s", doc.file_id)
                     file = await doc.get_file()
                     image_bytes = await file.download_as_bytearray()
-                    logger.info("Image document downloaded, size=%s bytes", len(image_bytes))
-                except Exception as exc:
-                    logger.exception("Failed to download image document: %s", exc)
-                    await status_msg.edit_text(f"❌ Không tải được ảnh: {exc}")
-                    return
+                    logger.info("Reply image document downloaded, size=%s bytes", len(image_bytes))
 
-        # Kiểm tra ảnh đính kèm trực tiếp với caption
-        elif update.message and update.message.photo:
-            photo = update.message.photo[-1]
-            logger.info("Direct photo detected, downloading file_id=%s", photo.file_id)
-            try:
+            elif update.message and update.message.photo:
+                photo = update.message.photo[-1]
+                logger.info("Downloading direct photo, file_id=%s", photo.file_id)
                 file = await photo.get_file()
                 image_bytes = await file.download_as_bytearray()
                 logger.info("Direct photo downloaded, size=%s bytes", len(image_bytes))
-            except Exception as exc:
-                logger.exception("Failed to download direct photo: %s", exc)
-                await status_msg.edit_text(f"❌ Không tải được ảnh: {exc}")
-                return
-        elif update.message and update.message.document and update.message.document.mime_type.startswith("image/"):
-            doc = update.message.document
-            logger.info("Direct image document, downloading file_id=%s", doc.file_id)
-            try:
+            elif update.message and update.message.document and update.message.document.mime_type.startswith("image/"):
+                doc = update.message.document
+                logger.info("Downloading direct image document, file_id=%s", doc.file_id)
                 file = await doc.get_file()
                 image_bytes = await file.download_as_bytearray()
                 logger.info("Direct image document downloaded, size=%s bytes", len(image_bytes))
-            except Exception as exc:
-                logger.exception("Failed to download direct image document: %s", exc)
-                await status_msg.edit_text(f"❌ Không tải được ảnh: {exc}")
-                return
+
+        except Exception as exc:
+            logger.exception("Photo download failed: %s", exc)
+            await status_msg.edit_text(f"❌ Không tải được ảnh: {exc}")
+            return
 
         # Nếu không có câu hỏi và không có ảnh
         if not question and not image_bytes:
-            await context.bot.send_message(
-                chat_id=chat.id,
-                text="💡 Cách dùng:\n"
-                     "• `/gemini câu hỏi của bạn`\n"
-                     "• Reply ảnh bằng `/gemini` để hỏi về ảnh\n"
-                     "• Gửi ảnh kèm caption: `/gemini Đây là kanji gì?`\n\n"
-                     "📝 Ví dụ:\n"
-                     "• `/gemini Kanji 陵 nghĩa là gì?`\n"
-                     "• `/gemini Giải thích từ vựng trong ảnh này`",
+            await status_msg.edit_text(
+                "💡 Cách dùng:\n"
+                "• `/gemini câu hỏi của bạn`\n"
+                "• Reply ảnh bằng `/gemini` để hỏi về ảnh\n"
+                "• Gửi ảnh kèm caption: `/gemini Đây là kanji gì?`\n\n"
+                "📝 Ví dụ:\n"
+                "• `/gemini Kanji 陵 nghĩa là gì?`\n"
+                "• `/gemini Giải thích từ vựng trong ảnh này`",
                 parse_mode="Markdown",
             )
             return
@@ -845,11 +830,7 @@ class TelegramBotService:
         if not question and image_bytes:
             question = "Hãy phân tích nội dung ảnh này và giải thích chi tiết."
 
-        # Gửi tin nhắn chờ — sẽ được edit liên tục khi streaming
-        status_msg = await context.bot.send_message(
-            chat_id=chat.id,
-            text="🤖 Gemini AI:\n\n_Đang tạo phản hồi..._",
-        )
+        logger.info("Gemini request: question='%s', image_bytes=%s", question[:50], bool(image_bytes))
 
         try:
             full_response = ""
