@@ -760,18 +760,71 @@ class TelegramBotService:
         # Lấy câu hỏi từ user
         question = " ".join(context.args) if context.args else ""
 
+        # Lấy caption nếu có (ảnh kèm caption /gemini xxx)
+        if not question and update.message and update.message.caption:
+            # Trừ phần lệnh /gemini hoặc /h
+            caption = update.message.caption.strip()
+            if caption.startswith("/gemini") or caption.startswith("/h "):
+                # Lấy phần sau lệnh
+                parts = caption.split(" ", 1)
+                if len(parts) > 1:
+                    question = parts[1].strip()
+                else:
+                    question = ""
+
         # Kiểm tra xem có ảnh trong reply message không
         image_bytes = None
         if update.message and update.message.reply_to_message:
             replied_msg = update.message.reply_to_message
+            logger.info("Reply detected. replied_msg attrs: photo=%s, text=%s, caption=%s",
+                        bool(replied_msg.photo), bool(replied_msg.text), bool(replied_msg.caption))
             if replied_msg.photo:
-                photo = replied_msg.photo[-1]
-                file = await photo.get_file()
-                image_bytes = await file.download_as_bytearray()
+                photo = replied_msg.photo[-1]  # Lấy ảnh độ phân giải cao nhất
+                logger.info("Downloading photo, file_id=%s", photo.file_id)
+                try:
+                    file = await photo.get_file()
+                    image_bytes = await file.download_as_bytearray()
+                    logger.info("Photo downloaded, size=%s bytes", len(image_bytes))
+                except Exception as exc:
+                    logger.exception("Failed to download photo: %s", exc)
+                    await status_msg.edit_text(f"❌ Không tải được ảnh: {exc}")
+                    return
+            elif replied_msg.document and replied_msg.document.mime_type.startswith("image/"):
+                # Trường hợp user gửi ảnh dạng file/document
+                doc = replied_msg.document
+                logger.info("Downloading image document, file_id=%s", doc.file_id)
+                try:
+                    file = await doc.get_file()
+                    image_bytes = await file.download_as_bytearray()
+                    logger.info("Image document downloaded, size=%s bytes", len(image_bytes))
+                except Exception as exc:
+                    logger.exception("Failed to download image document: %s", exc)
+                    await status_msg.edit_text(f"❌ Không tải được ảnh: {exc}")
+                    return
+
+        # Kiểm tra ảnh đính kèm trực tiếp với caption
         elif update.message and update.message.photo:
             photo = update.message.photo[-1]
-            file = await photo.get_file()
-            image_bytes = await file.download_as_bytearray()
+            logger.info("Direct photo detected, downloading file_id=%s", photo.file_id)
+            try:
+                file = await photo.get_file()
+                image_bytes = await file.download_as_bytearray()
+                logger.info("Direct photo downloaded, size=%s bytes", len(image_bytes))
+            except Exception as exc:
+                logger.exception("Failed to download direct photo: %s", exc)
+                await status_msg.edit_text(f"❌ Không tải được ảnh: {exc}")
+                return
+        elif update.message and update.message.document and update.message.document.mime_type.startswith("image/"):
+            doc = update.message.document
+            logger.info("Direct image document, downloading file_id=%s", doc.file_id)
+            try:
+                file = await doc.get_file()
+                image_bytes = await file.download_as_bytearray()
+                logger.info("Direct image document downloaded, size=%s bytes", len(image_bytes))
+            except Exception as exc:
+                logger.exception("Failed to download direct image document: %s", exc)
+                await status_msg.edit_text(f"❌ Không tải được ảnh: {exc}")
+                return
 
         # Nếu không có câu hỏi và không có ảnh
         if not question and not image_bytes:
@@ -795,7 +848,7 @@ class TelegramBotService:
         # Gửi tin nhắn chờ — sẽ được edit liên tục khi streaming
         status_msg = await context.bot.send_message(
             chat_id=chat.id,
-            text="🤖 **Gemini AI:**\n\n_Đang tạo phản hồi..._"
+            text="🤖 Gemini AI:\n\n_Đang tạo phản hồi..._",
         )
 
         try:
@@ -815,20 +868,56 @@ class TelegramBotService:
                     suffix = "\n\n_... (đang tiếp tục)_"
 
                 try:
+                    # Stream raw text — user thấy chữ hiện ra từng chút
                     await status_msg.edit_text(
-                        f"🤖 **Gemini AI:**\n\n{display}{suffix}",
-                        parse_mode="Markdown",
+                        f"🤖 Gemini AI:\n\n{display}{suffix}",
                     )
                 except Exception:
-                    # Bỏ qua lỗi edit trùng (chunk quá ngắn) — chờ chunk tiếp
                     pass
 
-                # Tránh flood Telegram API — edit tối đa ~5 lần/giây
                 await asyncio.sleep(0.2)
+
+            # Streaming xong — convert markdown → HTML để render đẹp
+            if full_response:
+                html_text = _md_to_html(full_response)
+                final_msg = f"🤖 <b>Gemini AI:</b>\n\n{html_text}"
+                if len(final_msg) > 4000:
+                    final_msg = final_msg[:4000] + "\n\n<i>(bị cắt do giới hạn Telegram)</i>"
+                await status_msg.edit_text(final_msg, parse_mode="HTML")
 
         except Exception as exc:
             logger.exception("Gemini command failed: %s", exc)
             await status_msg.edit_text(f"❌ Có lỗi xảy ra: {str(exc)}")
+
+
+def _md_to_html(text: str) -> str:
+    """Convert markdown cơ bản → HTML để Telegram render."""
+    import re
+
+    # Debug: log input đầu tiên
+    logger.debug("MD→HTML input (first 200 chars): %s", repr(text[:200]))
+
+    # 1. Markdown → HTML
+    # Heading: ## text → <b>text</b>
+    text = re.sub(r"^## (.+)$", r"<b>\1</b>", text, flags=re.MULTILINE)
+    text = re.sub(r"^### (.+)$", r"<i>\1</i>", text, flags=re.MULTILINE)
+
+    # Bold: **text** → <b>text</b>
+    text = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text)
+
+    # Italic: *text* → <i>text</i> (không match ** đã xử lý)
+    text = re.sub(r"(?<!\*)\*(.+?)\*(?!\*)", r"<i>\1</i>", text)
+
+    # Italic: _text_ → <i>text</i>
+    text = re.sub(r"(?<!\w)_(.+?)_(?!\w)", r"<i>\1</i>", text)
+
+    # Inline code: `text` → <code>text</code>
+    text = re.sub(r"`(.+?)`", r"<code>\1</code>", text)
+
+    # Debug: log output
+    logger.debug("MD→HTML output (first 200 chars): %s", repr(text[:200]))
+
+    return text
 
     async def callback_router(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         query = update.callback_query
