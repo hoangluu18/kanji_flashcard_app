@@ -43,6 +43,7 @@ from app.srs import (
     ReviewInput,
     calculate_next_review,
 )
+from app.gemini_service import GeminiService
 
 logger = get_logger(__name__)
 
@@ -117,6 +118,7 @@ class TelegramBotService:
         self.application: Application | None = None
         self.enabled = settings.bot_ready
         self.use_webhook = settings.telegram_use_webhook
+        self.gemini = GeminiService(settings)
 
         if not self.enabled:
             logger.warning(
@@ -147,6 +149,8 @@ class TelegramBotService:
         self.application.add_handler(CommandHandler("vm_status", self.cmd_vm_status))
         self.application.add_handler(CommandHandler("force_update", self.cmd_force_update))
         self.application.add_handler(CommandHandler("sh", self.cmd_sh))
+        self.application.add_handler(CommandHandler("gemini", self.cmd_gemini))
+        self.application.add_handler(CommandHandler("h", self.cmd_gemini))
         self.application.add_handler(CallbackQueryHandler(self.callback_router))
 
     async def initialize(self) -> None:
@@ -248,6 +252,7 @@ class TelegramBotService:
             "- /setlimit <số>: chỉnh giới hạn ôn/ngày\n"
             "- /vacation on|off: bật/tắt nghỉ học\n"
             "- /backlog: xem tồn đọng cần xử lý\n"
+            "- /gemini (hoặc /h): hỏi AI về Kanji kèm ảnh\n"
             "- /vm_status: xem trạng thái máy chủ (logs, memory)\n"
             "- /force_update: ép máy chủ cập nhật code tức thì\n"
             "- /sh <lệnh>: thao tác vào hệ thống Linux (Dành cho Admin)"
@@ -630,6 +635,78 @@ class TelegramBotService:
             "Lệnh nhanh: /settings (hoặc /setting), /quick, /setnew, /setlimit, /vacation, /backlog"
         )
         await context.bot.send_message(chat_id=chat.id, text=text)
+
+    async def cmd_gemini(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Xử lý lệnh /gemini hoặc /h - hỏi AI kèm ảnh nếu có."""
+        user = update.effective_user
+        chat = update.effective_chat
+        if user is None or chat is None:
+            return
+
+        # Kiểm tra Gemini có sẵn sàng không
+        if not self.gemini.enabled:
+            await context.bot.send_message(
+                chat_id=chat.id,
+                text="⚠️ Gemini AI hiện chưa được cấu hình. Vui lòng liên hệ admin."
+            )
+            return
+
+        # Gửi thông báo đang xử lý
+        status_msg = await context.bot.send_message(chat_id=chat.id, text="🤖 Đang suy nghĩ...")
+
+        try:
+            # Lấy câu hỏi từ user
+            question = " ".join(context.args) if context.args else ""
+
+            # Kiểm tra xem có ảnh trong reply message không
+            image_bytes = None
+            if update.message and update.message.reply_to_message:
+                replied_msg = update.message.reply_to_message
+                if replied_msg.photo:
+                    photo = replied_msg.photo[-1]  # Lấy ảnh độ phân giải cao nhất
+                    file = await photo.get_file()
+                    image_bytes = await file.download_as_bytearray()
+            elif update.message and update.message.photo:
+                # Trường hợp user gửi ảnh kèm caption
+                photo = update.message.photo[-1]
+                file = await photo.get_file()
+                image_bytes = await file.download_as_bytearray()
+
+            # Nếu không có câu hỏi và không có ảnh
+            if not question and not image_bytes:
+                await status_msg.edit_text(
+                    "💡 Cách dùng:\n"
+                    "• `/gemini câu hỏi của bạn`\n"
+                    "• Reply ảnh bằng `/gemini` để hỏi về ảnh\n"
+                    "• Gửi ảnh kèm caption: `/gemini Đây là kanji gì?`\n\n"
+                    "📝 Ví dụ:\n"
+                    "• `/gemini Kanji 陵 nghĩa là gì?`\n"
+                    "• `/gemini Giải thích từ vựng trong ảnh này`"
+                )
+                return
+
+            # Nếu không có question nhưng có ảnh, tạo câu hỏi mặc định
+            if not question and image_bytes:
+                question = "Hãy phân tích nội dung ảnh này và giải thích chi tiết."
+
+            # Gọi Gemini API
+            if image_bytes:
+                response_text = await self.gemini.ask_with_image(
+                    question=question,
+                    image_bytes=bytes(image_bytes)
+                )
+            else:
+                response_text = await self.gemini.ask(question=question)
+
+            # Gemini trả lời có thể rất dài > 4096 chars (Telegram limit)
+            if len(response_text) > 4000:
+                response_text = response_text[:4000] + "\n\n... (còn tiếp)"
+
+            await status_msg.edit_text(f"🤖 **Gemini AI:**\n\n{response_text}", parse_mode="Markdown")
+
+        except Exception as exc:
+            logger.exception("Gemini command failed: %s", exc)
+            await status_msg.edit_text(f"❌ Có lỗi xảy ra: {str(exc)}")
 
     async def callback_router(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         query = update.callback_query

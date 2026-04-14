@@ -39,6 +39,9 @@ class Settings(BaseSettings):
     quick_session_limit: int = Field(default=12, alias="QUICK_SESSION_LIMIT")
     leech_threshold: int = Field(default=5, alias="LEECH_THRESHOLD")
 
+    gemini_api_key: str = Field(default="ALIAS_GEMINI_API_KEY", alias="GEMINI_API_KEY")
+    gemini_model: str = Field(default="gemini-3.1-flash-lite-preview", alias="GEMINI_MODEL")
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
@@ -73,6 +76,10 @@ class Settings(BaseSettings):
             and not self.telegram_webhook_secret.startswith("ALIAS_")
             and not self.telegram_public_base_url.startswith("ALIAS_")
         )
+
+    @property
+    def gemini_ready(self) -> bool:
+        return not self.gemini_api_key.startswith("ALIAS_")
 
 
 def parse_hour_minute(value: str) -> tuple[int, int]:
